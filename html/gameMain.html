@@ -1,0 +1,57 @@
+<!--
+	SubFi - 2016
+	Michael Parkinson
+
+	The main html file for the html5 game.
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta name="author" content="SubFi">
+	
+		<link rel='stylesheet' type='text/css' href='../css/mainStyle.css' media='screen' />
+	
+		<title> SubFi </title>
+
+		<!--Calling JS FIles From ../js/-->
+		<script type='text/javascript' src='../js/main.js'></script>
+		<script type='text/javascript' src='../js/createWindow.js'></script>
+		<script type='text/javascript' src='../js/render.js'></script>
+		<script type='text/javascript' src='../js/object.js'></script>
+	</head>
+
+	<body>
+		<div id='ButtonContainer'>
+
+			<div id='StartButton'>
+				<input type='button' id='start' onclick='initialize()' value="Start"/>
+			</div>
+			<div id='ResetButton'>
+				<input type='button' id='reset' onclick='initialize()' value='Reset'>
+			</div>
+			<div id='BeginButton'>
+				<input type='button' id='begin' onclick='startSimulation()' value='Begin'>
+			</div>
+			<div id='StopButton'>
+				<input type='button' id='stop' onclick='turnOnMenu()' value='Stop'>
+			</div>
+		
+			<div id='InputMenu'>
+				<input type='range' id='xPosition' value='0' onchange="updateTextInput(this.value,'xVal');">
+				<input type='range' id='yPosition' value='0' onchange="updateTextInput(this.value,'yVal');">
+				<input type='range' id='radius' min='0' max='500' onchange="updateTextInput(this.value,'rad');">
+				<input type='button' id='confirm' value='Confirm' onclick='editCircleOff()'>
+				<input type='button' id='delete' value='Delete' onclick='deleteObject()'>
+			</div>
+			<div id='InputMenuText'>
+				<span id="xVal"> 0 </span>
+				<span id="yVal"> 0 </span>
+				<span id="rad"> 0 </span>
+			</div>
+		</div>
+
+	</body>
+
+</html>
+

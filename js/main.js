@@ -29,7 +29,7 @@ function initialize(){
 }
 var mainLoop = function main(event){
 	var checkStatus = checkDrawStatus()
-	var isClickable = false
+	// var isClickable = false
 	if(checkStatus){
 		mousePosition = checkMouseStatus(event)
 		

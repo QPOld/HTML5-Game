@@ -1,9 +1,11 @@
 /*
 	SubFi - 2016
 	Michael Parkinson
+	Anything related to storing object information
 */
 // Creating an array of arrays to locally store object phase space as well as mass
 var objectInformation = []
+var dotPosition = [] // array contain the user mouse position. allows for better visualization.
 var numberOfObjects = 0
 var rho = 0.001
 var index = -1
@@ -35,6 +37,9 @@ function editObjectList() {
 	
 }
 function checkClickableObject(mousePosition,objectInformation){
+	if( mousePosition[1] < 75 ) {
+		return [false,-1]
+	}
 	for(var i = 0; i < objectInformation.length; i++) {
 		var checkDistance = Math.sqrt( Math.pow(objectInformation[i][3] - mousePosition[0],2) + Math.pow(objectInformation[i][4] - mousePosition[1],2))
 		if(checkDistance < objectInformation[i][2]) {
@@ -89,9 +94,3 @@ function checkCollisionEvents(objectInformation) {
 }
 
 
-function startSimulation() {
-	document.getElementById('StartButton').style.opacity = 0; // Turn off the opacity for the start button.
-	document.getElementById('ResetButton').style.opacity = 0.75;// Turn on the opacity for the reset button.
-	document.getElementById('BeginButton').style.opacity = 0.0;// Turn on the opacity for the begin button.
-	document.getElementById('StopButton').style.opacity = 0.75;// Turn off the opacity for the stop button.
-}

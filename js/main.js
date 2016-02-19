@@ -20,81 +20,26 @@
 		> Change all global variables into a single variable(check google for it)
 			
 */
-//Global Variables
-var objectInformation = []// Creating an array of arrays to locally store object phase space as well as mass
-var dotPosition = [] // array contain the user mouse position. allows for better visualization.
-var numberOfObjects = 0
-var rho = 0.001
-var index = -1
-var mousePosition = [0,0,0,0,0]; // global variable - gets used by all files
-var defaultFPS = 1000 / 60 ;
-var minimumRadius = 5;
-var canvas = document.createElement("canvas");
-var ctx = canvas.getContext("2d");
-var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-/* 
-    initialize()
-    
-    Initializes the mouse, window, and object array.
-    
-    ../js/createwindow.js
-        clearWindow() 
-        MainWindow()
-    
-    ../js/userinfo.js
-        resetMousePosition()
-    
-    ../js/object.js        
-        resetObjectList() 
-    
-*/
-function initialize(){
-	clearWindow() 
-	resetMousePosition() 
-	resetObjectList(objectInformation)
-	MainWindow()
-}
- 
+// setInterval( function(){active.create.main()}, 1000/60 );
 /* 
     main(event)
-    
+
     Main loop for the entire program. Runs the function at 60 fps.
-    
-    ../js/render.js
-        checkDrawStatus()
-        drawCircle()
-    
-    ../js/userinfo.js
-        checkMouseStatus()
-    
-    ../js/object.js
-        storeObjectInformation()
-        checkClickableObject()
-        updateObjectInformation()
-        checkCollisionEvents()
-    
-    ../js/createWindow.js
-        moveCircle()
-        createBackground()
-    
 */
 var mainLoop = function main(event){
-	var checkStatus = checkDrawStatus()
-	if(checkStatus){ // draw mode
-		mousePosition = checkMouseStatus(event) // Retrieves  mouse position.
-		storeObjectInformation(mousePosition) // Store object position.
-		isClickable = checkClickableObject(mousePosition,objectInformation) // If you click on an object go to the menu.
-		if(isClickable[0]) {
-			isClickable[0] = moveCircle(objectInformation,isClickable[1]) // Object menu. Change the function name.
-		}
-	} else { // Simulate mode. Work in progress.
-		updateObjectInformation(objectInformation) 
-		checkCollisionEvents(objectInformation)
-		createBackground()
-		drawCircle(objectInformation)
-	}
-	
+    var checkStatus = active.render.draw.status()
+    if(checkStatus){ // draw mode
+        active.constant.mouse.position = active.userinfo.mouse.status(window.event) // Retrieves  mouse position.
+        active.object.edit.store() // Store object position.
+        isClickable = active.object.locate.clickable() // If you click on an object go to the menu.
+        if(isClickable[0]) {
+            isClickable[0] = active.options.draw.menu(active.constant.object.information,isClickable[1]) // Object menu. Change the function name.
+        }
+    } else { // Simulate mode. Work in progress.
+        active.object.edit.update(active.constant.object.information) 
+        active.object.locate.collision()
+        active.create.background()
+        active.render.draw.circle()
+    }	
 }
-
-setInterval( mainLoop, defaultFPS );
+setInterval( mainLoop, 1000/60 );

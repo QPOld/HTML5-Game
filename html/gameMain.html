@@ -15,12 +15,17 @@
         <!-- Style sheets are contained in the ../css folder. -->
 		<link rel='stylesheet' type='text/css' href='../css/mainStyle.css' media='screen' />
 		<!--Calling JS FIles From ../js/-->
-		<script type='text/javascript' src='../js/main.js'></script>
-		<script type='text/javascript' src='../js/createWindow.js'></script>
-		<script type='text/javascript' src='../js/render.js'></script>
-		<script type='text/javascript' src='../js/object.js'></script>
-		<script type='text/javascript' src='../js/options.js'></script>
-		<script type='text/javascript' src='../js/userinfo.js'></script>
+        <script type='text/javascript' src='../js/Active.js'></script>
+        <script type='text/javascript' src='../js/constant.js'></script>
+        <script type='text/javascript' src='../js/create.js'></script>
+        <script type='text/javascript' src='../js/userinfo.js'></script>
+        <script type='text/javascript' src='../js/render.js'></script> 
+        <script type='text/javascript' src='../js/object.js'></script>
+        <script type='text/javascript' src='../js/options.js'></script>
+        
+        <script type='text/javascript' src='../js/main.js'></script>
+        
+
 	</head>
 
 	<body>
@@ -30,24 +35,24 @@
                     initialize()
             -->
 			<div id='StartButton'>
-				<input type='button' id='start' onclick='initialize()' value="Start">
+				<input type='button' id='start' onclick='active.create.initialize()' value="Start">
 			</div>
 			<div id='ResetButton'>
-				<input type='button' id='reset' onclick='initialize()' value='Reset'>
+				<input type='button' id='reset' onclick='active.create.initialize()' value='Reset'>
 			</div>
             <!-- 
                 ../js/options.js 
                     startSimulation()
             -->
 			<div id='BeginButton'>
-				<input type='button' id='begin' onclick='startSimulation()' value='Begin'>
+				<input type='button' id='begin' onclick='active.options.run.startSimulation()' value='Begin'>
 			</div>
             <!-- 
-                ../js/render.js 
-                    turnOnMenu()
+                ../js/options.js 
+                    draw.turnOnMenu()
             -->
 			<div id='StopButton'>
-				<input type='button' id='stop' onclick='turnOnMenu()' value='Stop'>
+				<input type='button' id='stop' onclick='active.options.draw.turnOnMenu()' value='Stop'>
 			</div>
             <!-- 
                 The entire menu will be hidden. The menu is controlled by the style opacity.
@@ -59,11 +64,11 @@
                     deleteObject()
             -->
 			<div id='InputMenu'>
-				<input type='range' id='xPosition' value='0' onchange="updateTextInput(this.value,'xVal');">
-				<input type='range' id='yPosition' value='0' onchange="updateTextInput(this.value,'yVal');">
-				<input type='range' id='radius' min='0' max='500' onchange="updateTextInput(this.value,'rad');">
-				<input type='button' id='confirm' value='Confirm' onclick='editCircleOff()'>
-				<input type='button' id='delete' value='Delete' onclick='deleteObject()'>
+				<input type='range' id='xPosition' value='0' onchange="active.render.draw.update(this.value,'xVal');">
+				<input type='range' id='yPosition' value='0' onchange="active.render.draw.update(this.value,'yVal');">
+				<input type='range' id='radius' min='0' max='500' onchange="active.render.draw.update(this.value,'rad');">
+				<input type='button' id='confirm' value='Confirm' onclick='active.options.draw.editCircleOff()'>
+				<input type='button' id='delete' value='Delete' onclick='active.object.edit.remove()'>
 			</div>
 			<div id='InputMenuText'>
 				<span id="xVal"> 0 </span>

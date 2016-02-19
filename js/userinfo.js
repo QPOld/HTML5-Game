@@ -4,68 +4,70 @@
 	Anything that gets the mouse information belongs here.
 	 	
 */
-
-/* 
-    checkMouseStatus(event)
-    
-    event is the mouse click.
-    mousePosition
-    downX downY upX upY radius
-	  0    1      2   3     4
-    
-    Finds current mouse position and the distance between the down and up clicks.
-    
-*/
-function checkMouseStatus(event){
-	document.body.onmousedown = function(event) {
-        console.log(objectInformation[objectInformation.length - 1]);
-		console.log(objectInformation)
-		mousePosition[0] = event.clientX;
-		mousePosition[1] = event.clientY;
-		getDotPosition(mousePosition)
-		if (contains(objectInformation, dotPosition) !== false){
-			resetDotPosition(dotPosition)
-		} 
-	}
-	document.body.onmouseup = function(event) {
-		mousePosition[2] = event.clientX;
-		mousePosition[3] = event.clientY;
-		resetDotPosition(dotPosition)
-		drawCircle(objectInformation)
-	}
-	drawDot(dotPosition)
-	mousePosition[4] = Math.sqrt( Math.pow( mousePosition[0] - mousePosition[2] , 2 ) + Math.pow( mousePosition[1] - mousePosition[3] , 2 ) )
-	return mousePosition
-}
-
-/* 
-    resetMousePosition()
-    
-    Reset the length to zero then sets the mouse to the zero array.
-    
-*/
-function resetMousePosition() {
-	mousePosition.length = 0
-	mousePosition = [0,0,0,0,0]
-}
-
-/* 
-        getDotPosition(mousePosition)
+active.userinfo = {
+    mouse: {
         
-        Uses the down click mouse position as the location for the draw dot.
-        The draw dot is here for visibility.
+        reset: function() {
+            active.constant.mouse.position = [0,0,0,0,0]
+        },
         
-*/
-function getDotPosition(mousePosition) {
-	dotPosition = [mousePosition[0],mousePosition[1]]
-}
-
-/* 
-    resetDotPosition(dotPosition)
+        /* 
+            checkMouseStatus(event)
+            
+            event is the mouse click.
+            mousePosition
+            downX downY upX upY radius
+              0    1      2   3     4
+            
+            Finds current mouse position and the distance between the down and up clicks.
     
-    Resets the draw dot position.
+        */
+        status: function (event){
+            document.body.onmousedown = function(event) {
+                // console.log(active.constant.object.information[active.constant.object.information.length - 1]);
+                // console.log(active.constant.object.information)
+                // console.log(active.constant.rho)
+                active.constant.mouse.position[0] = event.clientX;
+                active.constant.mouse.position[1] = event.clientY;
+                active.userinfo.dot.position()
+                if (active.object.locate.contains(active.constant.object.information, active.constant.dot.position) !== false){
+                    active.userinfo.dot.reset(active.userinfo.dot.position)
+                } 
+            }
+            document.body.onmouseup = function(event) {
+                active.constant.mouse.position[2] = event.clientX;
+                active.constant.mouse.position[3] = event.clientY;
+                active.userinfo.dot.reset(active.constant.dot.position)
+                active.render.draw.circle()
+            }
+            active.render.draw.dot()
+            active.constant.mouse.position[4] = Math.sqrt( Math.pow( active.constant.mouse.position[0] - active.constant.mouse.position[2] , 2 ) + Math.pow( active.constant.mouse.position[1] - active.constant.mouse.position[3] , 2 ) )
+            // console.log(active.constant.mouse.position[0])
+            return active.constant.mouse.position
+        }
+    },
     
-*/
-function resetDotPosition(dotPosition) {
-    dotPosition = []
+    dot:{
+        
+        /* 
+            getDotPosition(mousePosition)
+        
+            Uses the down click mouse position as the location for the draw dot.
+            The draw dot is here for visibility.
+        
+        */
+        position: function() {
+            active.constant.dot.position = [active.constant.mouse.position[0],active.constant.mouse.position[1]]
+        },
+        
+        /* 
+            resetDotPosition(dotPosition)
+    
+            Resets the draw dot position.
+    
+        */
+        reset:function() {
+            active.constant.dot.position = []
+        }
+    }
 }

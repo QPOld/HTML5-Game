@@ -3,17 +3,17 @@
 	Michael Parkinson
 
 	The main html file for the html5 game.
+    All HTML element will be placed into this html file.
+    
 -->
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta charset='utf-8'>
 		<meta name="author" content="SubFi">
-	
+        <title> SubFi </title>
+        <!-- Style sheets are contained in the ../css folder. -->
 		<link rel='stylesheet' type='text/css' href='../css/mainStyle.css' media='screen' />
-	
-		<title> SubFi </title>
-
 		<!--Calling JS FIles From ../js/-->
 		<script type='text/javascript' src='../js/main.js'></script>
 		<script type='text/javascript' src='../js/createWindow.js'></script>
@@ -25,20 +25,39 @@
 
 	<body>
 		<div id='ButtonContainer'>
-
+            <!-- 
+                ../js/main.js
+                    initialize()
+            -->
 			<div id='StartButton'>
-				<input type='button' id='start' onclick='initialize()' value="Start"/>
+				<input type='button' id='start' onclick='initialize()' value="Start">
 			</div>
 			<div id='ResetButton'>
 				<input type='button' id='reset' onclick='initialize()' value='Reset'>
 			</div>
+            <!-- 
+                ../js/options.js 
+                    startSimulation()
+            -->
 			<div id='BeginButton'>
 				<input type='button' id='begin' onclick='startSimulation()' value='Begin'>
 			</div>
+            <!-- 
+                ../js/render.js 
+                    turnOnMenu()
+            -->
 			<div id='StopButton'>
 				<input type='button' id='stop' onclick='turnOnMenu()' value='Stop'>
 			</div>
-		
+            <!-- 
+                The entire menu will be hidden. The menu is controlled by the style opacity.
+                
+                ../js/render.js
+                    editCircleOff()
+                
+                ../js/object.js
+                    deleteObject()
+            -->
 			<div id='InputMenu'>
 				<input type='range' id='xPosition' value='0' onchange="updateTextInput(this.value,'xVal');">
 				<input type='range' id='yPosition' value='0' onchange="updateTextInput(this.value,'yVal');">

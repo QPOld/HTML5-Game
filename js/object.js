@@ -32,13 +32,25 @@ active.object = {
             else do nothing.
         */
         store: function() {
-            var phaseSpace = [active.constant.numbers.objects,Math.PI*active.constant.numbers.rho*Math.pow( active.constant.mouse.position[4] , 2 ),active.constant.mouse.position[4],active.constant.mouse.position[0],active.constant.mouse.position[1],0,0,0,0]
-            var checkArray = active.object.locate.contains(active.constant.object.information, phaseSpace)
+            // console.log(active.constant.object.information.length)
+            var com = active.object.locate.centerofmass()
+            var phaseSpace = active.options.run.initialConditions(com)
+            var checkArray = false
+            active.constant.numbers.index = active.constant.numbers.objects
+            checkArray = active.object.locate.contains(active.constant.object.information, phaseSpace)
             if(checkArray){
+                active.create.clear()
+                active.create.background()
                 active.render.draw.circle()
                 active.constant.object.information.push(phaseSpace)
                 active.constant.numbers.objects++
+                active.userinfo.mouse.reset()
+                active.create.clear()
+                active.create.background()
+                active.render.draw.circle()
+                // console.log("drawing")
             }
+            
         },
         
         /* 
@@ -63,12 +75,17 @@ active.object = {
                     0 		 1 	     2	   3   4    5    6    7    8 
 
         */
-        update:function(objectInformation) {
+        update:function() {
             for(var i = 1; i < active.constant.object.information.length; i++) {
-                for(var j = i + 1;j < active.constant.object.information.length; j++){
-                    objectInformation[i][3] += 0.1
-                    objectInformation[j][4] += 0.1
+                for(var k = 0; k < active.RK4.Array.coefficent.length; k++){
+                    var incX = active.RK4.Array.coefficent[k]*active.RK4.Array.krx[k]
+                    var incY = active.RK4.Array.coefficent[k]*active.RK4.Array.kry[k]
+                    for(var j = i + 1;j < active.constant.object.information.length; j++){
+                        active.method.RK4.acc(active.constant.object.information,i,j,incX,incY)
+                    }
+                    active.method.RK4.slope(active.constant.object.information[i][7],active.constant.object.information[i][8],k,i)
                 }
+                active.method.RK4.update(i)
             }
         },
         
@@ -211,13 +228,13 @@ active.object = {
         boundaries: function() {
             for(var i = 1; i < active.constant.object.information.length; i++) {
                 // console.log(active.constant.windows.width,i,active.constant.object.information[i][3] + active.constant.object.information[i][2],active.constant.object.information[i][3] - active.constant.object.information[i][2])
-                if(active.constant.object.information[i][3] + active.constant.object.information[i][2] > active.constant.windows.width) {
+                if(active.constant.object.information[i][3] + active.constant.object.information[i][2] >= active.constant.windows.width) {
                     active.constant.object.information[i][3] -= active.constant.windows.width
-                }else if(active.constant.object.information[i][4]+ active.constant.object.information[i][2] > active.constant.windows.height) {
+                }else if(active.constant.object.information[i][4] + active.constant.object.information[i][2] >= active.constant.windows.height) {
                     active.constant.object.information[i][4] -= active.constant.windows.height
-                }else if(active.constant.object.information[i][3] - active.constant.object.information[i][2] < 0) {
+                }else if(active.constant.object.information[i][3] - active.constant.object.information[i][2] <= 0) {
                     active.constant.object.information[i][3] += active.constant.windows.width
-                }else if(active.constant.object.information[i][4] - active.constant.object.information[i][2] < 0) {
+                }else if(active.constant.object.information[i][4] - active.constant.object.information[i][2] <= 0) {
                     active.constant.object.information[i][4] += active.constant.windows.height
                 }else {
                     continue
@@ -227,6 +244,24 @@ active.object = {
             // for(var i = 0; i < active.constant.windows.width; i++){
                 // for()
             // }
+        },
+        
+        /* 
+            center of mass
+        */
+        centerofmass: function() {
+            var xCOM = 0
+            var yCOM = 0
+            var mass = 0;
+            for(var m = 1; m < active.constant.object.information.length; m++) {
+                mass += active.constant.object.information[m][1]
+            }
+            active.constant.numbers.totalMass = mass
+            for(var i = 1; i < active.constant.object.information.length; i++) {
+                xCOM += active.constant.object.information[i][1]*active.constant.object.information[i][3]/mass
+                yCOM += active.constant.object.information[i][1]*active.constant.object.information[i][4]/mass
+            }
+            return [xCOM,yCOM]
         }
     }
 }

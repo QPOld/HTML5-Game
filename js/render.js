@@ -26,14 +26,14 @@ active.render = {
         circle: function() {
             active.create.clear()
             active.create.background()
+            active.context.ctx.fillStyle = "#000000";
+            active.context.ctx.fill()
             for (var i = 1; i < active.constant.object.information.length; i++) { // the first element is the default position (
                 active.context.ctx.beginPath();
-                active.context.ctx.fillStyle = "#000000";
-                active.context.ctx.fill()
                 active.context.ctx.arc(active.constant.object.information[i][3],active.constant.object.information[i][4],active.constant.object.information[i][2],0,2*Math.PI);
                 active.context.ctx.stroke();
             }
-    
+            
         },
         
         /* 
@@ -67,7 +67,6 @@ active.render = {
         status: function() {
             var checkOpacity = document.getElementById('BeginButton').style.opacity;
             if ( checkOpacity > 0 ) { return true } else { return false};
-            
         },
         
         /* 

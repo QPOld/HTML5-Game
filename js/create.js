@@ -26,6 +26,9 @@ active.create = {
         active.context.ctx.fillStyle = "#faffcb";
         active.context.ctx.fill()
         active.context.ctx.fillRect( 0 , 0 , active.constant.windows.width , active.constant.windows.height );
+        active.context.ctx.fillStyle = "#8dcb83";
+        active.context.ctx.fill()
+        active.context.ctx.fillRect( 0 , 0 , active.constant.windows.width , 85 );
     },
     
     /* 
@@ -49,7 +52,9 @@ active.create = {
     
     */
     clear: function() {
+        active.context.ctx.save()
         active.context.ctx.clearRect(0, 0, active.constant.windows.width, active.constant.windows.height);
+        active.context.ctx.restore()
     },
     
     /* 

@@ -39,11 +39,11 @@ active.options = {
         editCircleOff: function() {
             document.getElementById('InputMenu').style.opacity = 0.0
             document.getElementById('InputMenuText').style.opacity = 0.0
-            if(active.constant.object.information.length > 1) {
-                active.constant.object.information[active.constant.numbers.index][3] = parseInt(document.getElementById('xPosition').value,10)
-                active.constant.object.information[active.constant.numbers.index][4] = parseInt(document.getElementById('yPosition').value,10)
-                active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('radius').value,10)  
-            }
+            // if(active.constant.object.information.length > 1) {
+                // active.constant.object.information[active.constant.numbers.index][3] = parseInt(document.getElementById('xPosition').value,10)
+                // active.constant.object.information[active.constant.numbers.index][4] = parseInt(document.getElementById('yPosition').value,10)
+                // active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('radius').value,10)  
+            // }
             active.render.draw.circle(active.constant.object.information)
             active.userinfo.mouse.reset()
         },
@@ -96,6 +96,26 @@ active.options = {
             document.getElementById('ResetButton').style.opacity = 0.75      // Turn on the opacity for the reset button.
             document.getElementById('StopButton').style.opacity = 0.75       // Turn off the opacity for the stop button.
             active.options.draw.editCircleOff()
+        },
+        
+        initialConditions:function(com) {
+            var x = active.constant.mouse.position[0]
+            var y = active.constant.mouse.position[1]
+            var mass = Math.PI*active.constant.numbers.rho*Math.pow( active.constant.mouse.position[4] , 2 )
+            var mu = active.constant.numbers.G*mass
+            // var mu = active.constant.numbers.G*active.constant.numbers.totalMass
+            var magnitude = Math.pow( ( Math.pow( x , 2 ) + Math.pow( y , 2 ) ), 3/2 )
+            if(magnitude > 0) {
+                // var vx = Math.sqrt(mu)*Math.abs(y) / Math.sqrt(magnitude)
+                // var vy = - x*Math.sign(y)*Math.sqrt(mu) / Math.sqrt(magnitude)
+                var vx = (mu*y / magnitude)*Math.sqrt(magnitude/mu)
+                var vy = -(mu*x / magnitude)*Math.sqrt(magnitude/mu)
+            }else {
+                var vx = 0
+                var vy = 0
+            }
+            return [active.constant.numbers.objects,mass,active.constant.mouse.position[4],x,y,vx,vy,0,0,0,0]
+            
         }
     }   
 }

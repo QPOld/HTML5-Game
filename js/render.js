@@ -7,13 +7,17 @@
 */
 
 active.render = {
+    
+    /* 
+        Anything related to drawing shapes should go here.
+    */
     draw: {
+        
         /* 
             drawCircle(active.constant.object.information)
     
             active.constant.object.information is an array storing the phase space for an object plus additional information.
-            number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay
-                0 		  1 	  2	    3   4    5    6    7    8
+            
                 
             Loops through the active.constant.object.information array and draws circles at all the x and y positions.
             Used to provide an animation type simulation.

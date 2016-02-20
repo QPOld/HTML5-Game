@@ -7,7 +7,11 @@
     
 */
 active.options = {
+    /* 
+        Any menu options related to drawing go here.
+    */
     draw: {
+        
         /* 
             editCircleOn()
     
@@ -35,9 +39,11 @@ active.options = {
         editCircleOff: function() {
             document.getElementById('InputMenu').style.opacity = 0.0
             document.getElementById('InputMenuText').style.opacity = 0.0
-            active.constant.object.information[active.constant.numbers.index][3] = parseInt(document.getElementById('xPosition').value,10)
-            active.constant.object.information[active.constant.numbers.index][4] = parseInt(document.getElementById('yPosition').value,10)
-            active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('radius').value,10)
+            if(active.constant.object.information.length > 1) {
+                active.constant.object.information[active.constant.numbers.index][3] = parseInt(document.getElementById('xPosition').value,10)
+                active.constant.object.information[active.constant.numbers.index][4] = parseInt(document.getElementById('yPosition').value,10)
+                active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('radius').value,10)  
+            }
             active.render.draw.circle(active.constant.object.information)
             active.userinfo.mouse.reset()
         },
@@ -71,7 +77,12 @@ active.options = {
             document.getElementById('StopButton').style.opacity = 0;// Turn off the opacity for the stop button.
         }
     },
+    
+    /* 
+        Anything related to starting the simulation will go here.
+    */
     run: {
+        
         /* 
             startSimulation()
         
@@ -84,6 +95,7 @@ active.options = {
             document.getElementById('BeginButton').style.opacity = 0.0       // Turn on the opacity for the begin button.
             document.getElementById('ResetButton').style.opacity = 0.75      // Turn on the opacity for the reset button.
             document.getElementById('StopButton').style.opacity = 0.75       // Turn off the opacity for the stop button.
+            active.options.draw.editCircleOff()
         }
     }   
 }

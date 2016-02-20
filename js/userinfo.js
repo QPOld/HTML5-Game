@@ -5,6 +5,10 @@
 	 	
 */
 active.userinfo = {
+    
+    /* 
+        Anything related to getting the mouse information.
+    */
     mouse: {
         
         reset: function() {
@@ -47,6 +51,9 @@ active.userinfo = {
         }
     },
     
+    /* 
+        Anything related to the dot for visibility should go here.
+    */
     dot:{
         
         /* 

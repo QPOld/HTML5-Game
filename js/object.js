@@ -5,7 +5,12 @@
     
 */
 active.object = {
+    
+    /* 
+        Anything that will edit the object information array will go in the edit section.
+    */
     edit:{
+                
         /* 
             list()
         
@@ -54,11 +59,16 @@ active.object = {
             WORK IN PROGRESS
     
             Will eventually update the active.constant.object.information with information from the RK4 method.
-    
+               number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay
+                    0 		 1 	     2	   3   4    5    6    7    8 
+
         */
         update:function(objectInformation) {
-            for(var i = 1; i < objectInformation.length; i++) {
-                objectInformation[i][2] += 1;
+            for(var i = 1; i < active.constant.object.information.length; i++) {
+                for(var j = i + 1;j < active.constant.object.information.length; j++){
+                    objectInformation[i][3] += 0.1
+                    objectInformation[j][4] += 0.1
+                }
             }
         },
         
@@ -74,9 +84,32 @@ active.object = {
             active.render.draw.circle()
             active.options.draw.editCircleOff()
             active.userinfo.mouse.reset()
+        },
+        
+        /* 
+            check max size
+        */
+        size:function(radius,inspect) {
+            // console.log(radius > active.constant.windows.width/8 ,radius > active.constant.windows.height/8)
+            
+            if(radius > active.constant.windows.width/8 || radius > active.constant.windows.height/8) {
+                var newXVal = active.constant.object.information[inspect][3] + 25
+                var newYVal = active.constant.object.information[inspect][4] + 25
+                for(var i=0;i<4;i++){
+                    active.constant.mouse.position = [-newYVal,newXVal,0,0,radius/4]
+                    active.object.edit.store()
+                }
+                active.constant.numbers.index = inspect
+                active.object.edit.remove()
+            }
         }
     },
+    
+    /* 
+        Anything that uses the Object Information Array will go in the locate section.
+    */
     locate:{
+        
         /* 
             contains(object,testObject)
     
@@ -132,6 +165,7 @@ active.object = {
         collision: function() {
             for(var i = 1; i < active.constant.object.information.length; i++) {
                 for(var j = i + 1;j < active.constant.object.information.length; j++){
+                    
                     var currentDistance = Math.sqrt( Math.pow(active.constant.object.information[i][3] - active.constant.object.information[j][3],2) + Math.pow(active.constant.object.information[i][4] - active.constant.object.information[j][4],2) )
                     var combinedRadius = active.constant.object.information[i][2] + active.constant.object.information[j][2]
                     if(currentDistance < combinedRadius) {
@@ -149,6 +183,50 @@ active.object = {
                     }
                 }
             }
+        },
+        
+        /* 
+            check max size
+        */
+        size:function() {
+            // console.log(radius > active.constant.windows.width/8 ,radius > active.constant.windows.height/8)
+            for(var i = 1; i < active.constant.object.information.length; i++){
+                if(active.constant.object.information[i][2] > active.constant.windows.width/8 || radius > active.constant.windows.height/8) {
+                    var newXVal = active.constant.object.information[i][3] + 25
+                    var newYVal = active.constant.object.information[i][4] + 25
+                    for(var i=0;i<4;i++){
+                        active.constant.mouse.position = [-newYVal,newXVal,0,0,radius/4]
+                        active.object.edit.store()
+                    }
+                    active.constant.numbers.index = i
+                    active.object.edit.remove()
+                }
+            }
+            
+        },
+        
+        /* 
+            boundary conditions
+        */
+        boundaries: function() {
+            for(var i = 1; i < active.constant.object.information.length; i++) {
+                // console.log(active.constant.windows.width,i,active.constant.object.information[i][3] + active.constant.object.information[i][2],active.constant.object.information[i][3] - active.constant.object.information[i][2])
+                if(active.constant.object.information[i][3] + active.constant.object.information[i][2] > active.constant.windows.width) {
+                    active.constant.object.information[i][3] -= active.constant.windows.width
+                }else if(active.constant.object.information[i][4]+ active.constant.object.information[i][2] > active.constant.windows.height) {
+                    active.constant.object.information[i][4] -= active.constant.windows.height
+                }else if(active.constant.object.information[i][3] - active.constant.object.information[i][2] < 0) {
+                    active.constant.object.information[i][3] += active.constant.windows.width
+                }else if(active.constant.object.information[i][4] - active.constant.object.information[i][2] < 0) {
+                    active.constant.object.information[i][4] += active.constant.windows.height
+                }else {
+                    continue
+                }
+            }
+            
+            // for(var i = 0; i < active.constant.windows.width; i++){
+                // for()
+            // }
         }
     }
 }

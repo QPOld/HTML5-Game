@@ -7,6 +7,7 @@
 */
 
 active.create = {
+    
     /* 
         createBackground()
         
@@ -40,10 +41,11 @@ active.create = {
         document.body.appendChild(active.constant.windows.canvas);
 	
     },
-    /* 
-    clear()
     
-    Places a clear rectangle with size of the window height and width.
+    /* 
+        clear()
+    
+        Places a clear rectangle with size of the window height and width.
     
     */
     clear: function() {

@@ -15,6 +15,10 @@
             * fix draw methods
                 > draw.dot
                 > split draw.circles <- make just for splitting
+            * Change screen coordinates into a different system for RK4 method.
+                > maybe center of mass or a shift origin at least
+                > Fix RK4 Method
+            *Introduce New Menu
 			
 */
 /* 
@@ -27,20 +31,25 @@ function main(){
     if(checkStatus){ // draw mode
         active.constant.mouse.position = active.userinfo.mouse.status(window.event) // Retrieves  mouse position.
         active.object.edit.store() // Store object position.
-        // isClickable = active.object.locate.clickable() // If you click on an object go to the menu.
+        isClickable = active.object.locate.clickable() // If you click on an object go to the menu.
         // console.log(isClickable)
-        // if(isClickable[0]) {
-            // isClickable[0] = active.options.draw.menu(active.constant.object.information,isClickable[1]) // Object menu. Change the function name.
-        // }
+        if(isClickable[0]) {
+            isClickable[0] = active.options.draw.menu(active.constant.object.information,isClickable[1]) // Object menu. Change the function name.
+        }
         // console.log("done")
     } else { // Simulate mode. Work in progress.
-        active.object.edit.update()
         active.object.locate.boundaries()
-        // active.object.locate.collision()
+        active.object.locate.collision()
+        active.object.edit.update()
         // active.object.locate.size()
-        active.create.clear()
-        active.create.background()
-        active.render.draw.circle()  
+        if(active.constant.numbers.updating == active.constant.numbers.maximumFrames){
+            active.create.background.clear()
+            active.create.background.frame()
+            active.render.draw.circle()
+            active.constant.numbers.updating = 0
+        }
+        active.constant.numbers.updating ++
+          
     }
     requestAnimationFrame(main);
     

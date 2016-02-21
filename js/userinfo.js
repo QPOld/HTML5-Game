@@ -11,26 +11,33 @@ active.userinfo = {
     */
     mouse: {
         
+        /*
+            active.userinfo.mouse.reset()
+            
+            Resets the mouse to the default position.
+        */
         reset: function() {
             active.constant.mouse.position = [0,0,0,0,0]
         },
         
         /* 
-            checkMouseStatus(event)
+            active.userinfo.mouse.status(event)
             
-            event is the mouse click.
-            mousePosition
-            downX downY upX upY radius
+            The event is the mouse click.
+            
+            mouse.position
+            downX downY upX upY distance
               0    1      2   3     4
             
+            
             Finds current mouse position and the distance between the down and up clicks.
+            Think click and drag.
     
         */
         status: function (event){
             document.body.onmousedown = function(event) {
                 // console.log(active.constant.object.information[active.constant.object.information.length - 1]);
                 // console.log(active.constant.object.information)
-                // console.log(active.constant.rho)
                 active.constant.mouse.position[0] = event.clientX;
                 active.constant.mouse.position[1] = event.clientY;
                 active.userinfo.dot.position()
@@ -46,7 +53,6 @@ active.userinfo = {
             }
             active.render.draw.dot()
             active.constant.mouse.position[4] = Math.sqrt( Math.pow( active.constant.mouse.position[0] - active.constant.mouse.position[2] , 2 ) + Math.pow( active.constant.mouse.position[1] - active.constant.mouse.position[3] , 2 ) )
-            // console.log(active.constant.mouse.position[0])
             return active.constant.mouse.position
         }
     },
@@ -57,10 +63,12 @@ active.userinfo = {
     dot:{
         
         /* 
-            getDotPosition(mousePosition)
+            active.userinfo.dot.position()
         
             Uses the down click mouse position as the location for the draw dot.
             The draw dot is here for visibility.
+            
+            This will be expanded upon in the future.
         
         */
         position: function() {
@@ -68,9 +76,11 @@ active.userinfo = {
         },
         
         /* 
-            resetDotPosition(dotPosition)
+            active.userinfo.dot.reset()
     
             Resets the draw dot position.
+            
+            Empty array instead of zero array. Trying out both.
     
         */
         reset:function() {

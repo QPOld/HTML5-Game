@@ -8,62 +8,114 @@
 */
 active.constant = {
     
+    /*
+        active.constant.mouse.position
+        
+        Constants stored for the mouse go here.
+        
+        Holds the mouse position array. This may be changed to an empty array.
+        
+        mouseDownX \ mouseDownY \ mouseUpX \ mouseUpY \ Distance
+            0            1            2          3          4
+    */
     mouse:{
-        position:[0,0,0,0,0] // global variable - gets used by all files
+        position:[0,0,0,0,0] 
     },
     
+    /* 
+        active.constant.dot.position
+       
+        Constants for the drawing dot goes here.
+        
+        Holds an empty array for the dot position.
+    */
     dot:{
         position:[]
     },
     
-    /* number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay \ axtemp \ aytemp
-           0 		 1 	     2	   3   4    5    6    7    8 
+    /* 
+        active.constant.object.information
+        
+        active.constant.object.information is an array storing the phase space
+        for an object plus additional information.
+        
+        number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay \ axtemp \ aytemp
+            0 		 1 	     2	   3   4    5    6    7    8      9       10
     */
     object:{
-        information:[]
+        information:[],
+        centerofmass:[0,0]
     },
+    
+    /* 
+        active.constant.numbers."name"
         
+        Stores constants:physical constants, parameters,flags,etc.
+    */
     numbers:{
         objects:0,
-        rho:1,
+        rho:1, // solar mass / au^3
         G:39.4, // solar mass au years
         index:-1,
-        minimumRadius:5,
-        updating:1,
+        minimumRadius:5, // au
+        updating:0,
+        maximumFrames:1,
+        splitting:4,
         fps:1000/60,
-        h:0.01,
-        totalMass:0
+        h:0.01, // step sizes
+        totalMass:0,
+        edgeThickness:25, // in pixels
+        menuThickness:90
     },
     
+    /* 
+        active.constant.RK4.kcoefficent()
+        active.constant.RK4.fcoefficent()
+        active.constant.RK4."name"
+        
+        The k-coefficent and f-coefficent are functions that return arrays.
+        They reference the same object and must be returned immediately upon calling.
+        
+        The others are called as usual.
+    */
+    RK4:{  
+        kcoefficent:function(){return [1,active.constant.numbers.h/2,active.constant.numbers.h/2,active.constant.numbers.h,1]},
+        fcoefficent:function(){return [active.constant.numbers.h/6,active.constant.numbers.h/3,active.constant.numbers.h/3,active.constant.numbers.h/6]},
+        krx:[0,0,0,0,0], // 0 , krx1, krx2, krx3, krx4
+        kry:[0,0,0,0,0],
+        kvx:[1,0,0,0,0], // 1, kvx1, kvx2, kvx3, kvx4 
+        kvy:[1,0,0,0,0]   
+    },
     
+    /* 
+        active.constant.context.ctx()
+        
+        Must be called like a function.
+        Reference to the canvas which is contained in the constant object.
+    */
+    context:{
+        ctx:function(){return active.constant.windows.canvas.getContext("2d")}
+    },
+    
+    /* 
+        active.constants.windows."name"
+        
+        Anything canvas related but the context (ctx).
+    */
     windows:{
         canvas:document.createElement("canvas"),
-        
         width:window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
         height:window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
-        edgeThickness:25
     },
     
+    /* 
+        active.constant.random.uniform()
+        
+        Generates a random number between min and max.
+    */
     random:{
         uniform: function(min, max) {
             return Math.random() * (max - min) + min;
         }
     }
-}
-active.context= {
-    ctx:active.constant.windows.canvas.getContext("2d")
-}
-active.RK4 = {
-        
-        Array:{
-            
-            coefficent:[1,active.constant.numbers.h/2,active.constant.numbers.h/2,active.constant.numbers.h,1],
-            fcoefficent:[active.constant.numbers.h/6,active.constant.numbers.h/3,active.constant.numbers.h/3,active.constant.numbers.h/6],
-            krx:[0,0,0,0,0], // 0 , krx1, krx2, krx3, krx4
-            kry:[0,0,0,0,0],
-            kvx:[1,0,0,0,0], // 1, kvx1, kvx2, kvx3, kvx4 
-            kvy:[0,0,0,0,0],
-            
-        }
-        
 }

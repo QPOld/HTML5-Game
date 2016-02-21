@@ -35,24 +35,24 @@
                     initialize()
             -->
 			<div id='StartButton'>
-				<input type='button' id='start' onclick='active.create.initialize()' value="Start">
+				<input type='button' id='start' onclick='active.create.background.initialize()' value="Start">
 			</div>
 			<div id='ResetButton'>
-				<input type='button' id='reset' onclick='active.create.initialize()' value='Reset'>
+				<input type='button' id='reset' onclick='active.create.background.initialize()' value='Reset'>
 			</div>
             <!-- 
                 ../js/options.js 
                     startSimulation()
             -->
 			<div id='BeginButton'>
-				<input type='button' id='begin' onclick='active.options.run.startSimulation()' value='Begin'>
+				<input type='button' id='begin' onclick='active.options.run.simulation()' value='Begin'>
 			</div>
             <!-- 
                 ../js/options.js 
                     draw.turnOnMenu()
             -->
 			<div id='StopButton'>
-				<input type='button' id='stop' onclick='active.options.draw.turnOnMenu()' value='Stop'>
+				<input type='button' id='stop' onclick='active.options.draw.turnOnMainMenu()' value='Stop'>
 			</div>
             <!-- 
                 The entire menu will be hidden. The menu is controlled by the style opacity.

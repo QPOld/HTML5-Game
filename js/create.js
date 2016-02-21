@@ -8,64 +8,64 @@
 
 active.create = {
     
-    /* 
-        createBackground()
+    background:{
         
-        Create a canvas element that is the width and height of the screen/window.
-        Then fills the circle with the background color.
+        /* 
+            active.create.background.frame()
+            
+            Create a canvas element that is the width and height of the screen/window.
+            Then fills the circle with the background color.
     
-    */
-    background: function(){
-        document.getElementById('xPosition').min = '0'
-        document.getElementById('xPosition').max = active.constant.windows.width.toString()
-        document.getElementById('yPosition').min = '0'
-        document.getElementById('yPosition').max = active.constant.windows.height.toString()
-        windowEdgeThickness = 25;
-        active.constant.windows.canvas.width = active.constant.windows.width - active.constant.windows.edgeThickness;
-        active.constant.windows.canvas.height = active.constant.windows.height - active.constant.windows.edgeThickness;
-        active.context.ctx.fillStyle = "#faffcb";
-        active.context.ctx.fill()
-        active.context.ctx.fillRect( 0 , 0 , active.constant.windows.width , active.constant.windows.height );
-        active.context.ctx.fillStyle = "#8dcb83";
-        active.context.ctx.fill()
-        active.context.ctx.fillRect( 0 , 0 , active.constant.windows.width , 85 );
-    },
-    
-    /* 
-        MainWindow()
+        */
+        frame:function(){
+            document.getElementById('xPosition').min = '0'
+            document.getElementById('xPosition').max = active.constant.windows.width.toString()
+            document.getElementById('yPosition').min = '0'
+            document.getElementById('yPosition').max = active.constant.windows.height.toString()
+            windowEdgeThickness = 25;
+            active.constant.windows.canvas.width = active.constant.windows.width - active.constant.numbers.edgeThickness;
+            active.constant.windows.canvas.height = active.constant.windows.height - active.constant.numbers.edgeThickness;
+            active.constant.context.ctx().fillStyle = "#faffcb";
+            active.constant.context.ctx().fill()
+            active.constant.context.ctx().fillRect( 0 , 0 , active.constant.windows.width , active.constant.windows.height );
+            active.constant.context.ctx().fillStyle = "#8dcb83";
+            active.constant.context.ctx().fill()
+            active.constant.context.ctx().fillRect( 0 , 0 , active.constant.windows.width , 85 );
+        },
         
-        Turns on the main menu and creates the background.
-        The canvas is then appended to the body.
+        /* 
+            active.create.background.append()
+            
+            Turns on the main menu and creates the background.
+            The canvas is then appended to the body.
     
-    */
-    append() {
-        active.options.draw.turnOnMenu()
-        active.create.background()
-        document.body.appendChild(active.constant.windows.canvas);
-	
-    },
+        */
+        append:function() {
+            active.options.draw.turnOnMainMenu()
+            active.create.background.frame()
+            document.body.appendChild(active.constant.windows.canvas);
+        },
+        
+        /* 
+            active.create.background.clear()
+        
+            Places a clear rectangle with size of the window height and width.
     
-    /* 
-        clear()
-    
-        Places a clear rectangle with size of the window height and width.
-    
-    */
-    clear: function() {
-        active.context.ctx.save()
-        active.context.ctx.clearRect(0, 0, active.constant.windows.width, active.constant.windows.height);
-        active.context.ctx.restore()
-    },
-    
-    /* 
-        initialize()
-    
-        Initializes the mouse, window, and object array.
-    */
-    initialize: function(){
-        active.create.clear() 
-        active.userinfo.mouse.reset() 
-        active.object.edit.reset(active.constant.object.information)
-        active.create.append()
+        */
+        clear: function() {
+            active.constant.context.ctx().clearRect(0, 0, active.constant.windows.width, active.constant.windows.height);
+        },
+        
+        /* 
+            active.create.backgroundinitialize()
+        
+            Initializes the mouse, window, and object array.
+        */
+        initialize: function(){
+            active.create.background.clear() 
+            active.userinfo.mouse.reset() 
+            active.object.edit.reset(active.constant.object.information)
+            active.create.background.append()
+        }
     }
 }

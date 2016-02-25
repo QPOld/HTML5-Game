@@ -79,6 +79,7 @@ active.options = {
             document.getElementById('ResetButton').style.opacity = 0.75;// Turn on the opacity for the reset button.
             document.getElementById('BeginButton').style.opacity = 0.75;// Turn on the opacity for the begin button.
             document.getElementById('StopButton').style.opacity = 0;// Turn off the opacity for the stop button.
+            document.getElementById('TextContainer').style.opacity = 0;// Turn off the opacity for the stop button.
         }
     }, // End of active.options.draw
     
@@ -115,20 +116,21 @@ active.options = {
             for(var i=0;i<active.constant.object.information.length;i++){
                 var x = active.constant.object.information[i][3] - active.constant.object.centerofmass[0]
                 var y = active.constant.object.information[i][4] - active.constant.object.centerofmass[1]
-                var mu = active.constant.numbers.G*active.constant.numbers.totalMass
+                var mu = active.constant.numbers.G*(active.constant.numbers.totalMass)
                 var top = 1 + Math.pow(y,2)/Math.pow(x,2)
                 var bot = Math.pow(Math.pow(x,2) + Math.pow(y,2),3)
                 if(Math.sqrt(Math.pow(x,2) + Math.pow(y,2)) < active.constant.object.information[i][2]){
                     var vx = 0
                     var vy = 0
                 }else {
-                    var mu = active.constant.numbers.G*(active.constant.numbers.totalMass - active.constant.object.information[i][1])
-                    var vx = -Math.sqrt(mu)*x*y*Math.sqrt(top/bot)
+                    var mu = active.constant.numbers.G*(active.constant.numbers.totalMass)
+                    var vx = -Math.sqrt(mu)*x*y*Math.sqrt(top/bot) // incorrect velocities
                     var vy = Math.sqrt(mu)*Math.pow(x,2)*Math.sqrt(top/bot)
                 }
                 active.constant.object.information[i][5] = vx
                 active.constant.object.information[i][6] = vy
-            } 
+            }
+            
         }
     }   
 }

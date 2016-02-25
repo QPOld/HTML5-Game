@@ -5,7 +5,6 @@
 	(2-19-2016) 
 		
 		FUTURE
-			* Add in RK4 Method
 			* Add in BH Method (for large N)
 			* Change collision detection
 				> use current models
@@ -13,11 +12,9 @@
             * Improve user flow
             * create a max size splits the bigger objects into little objects
             * fix draw methods
-                > draw.dot
                 > split draw.circles <- make just for splitting
-            * Change screen coordinates into a different system for RK4 method.
-                > maybe center of mass or a shift origin at least
-                > Fix RK4 Method
+
+            *Fix RK4 Method
             *Introduce New Menu
 			
 */
@@ -39,7 +36,7 @@ function main(){
         // console.log("done")
     } else { // Simulate mode. Work in progress.
         active.object.locate.boundaries()
-        active.object.locate.collision()
+        // active.object.locate.collision()
         active.object.edit.update()
         // active.object.locate.size()
         if(active.constant.numbers.updating == active.constant.numbers.maximumFrames){

@@ -73,17 +73,27 @@ active.object = {
 
         */
         update:function() {
-            for(var i = 1; i < active.constant.object.information.length; i++) {
-                for(var k = 0; k < active.constant.RK4.kcoefficent().length; k++){
-                    var incX = active.constant.RK4.kcoefficent()[k]*active.constant.RK4.krx[k]
-                    var incY = active.constant.RK4.kcoefficent()[k]*active.constant.RK4.kry[k]
-                    for(var j = i + 1;j < active.constant.object.information.length; j++){
-                        active.method.RK4.acc(active.constant.object.information,i,j,incX,incY)
+            for(var i = 1; i < active.constant.object.information.length; i++){
+                    for(var j = i + 1; j < active.constant.object.information.length; j++){
+                        active.method.VelocityVerlet.acc(active.constant.object.information,i,j,0,false)
                     }
-                    active.method.RK4.slope(active.constant.object.information[i][7],active.constant.object.information[i][8],k,i)
-                }
-                active.method.RK4.update(i)
             }
+            for(var i = 1; i < active.constant.object.information.length; i++){
+                for(j=3;j<5;j++){
+                    active.constant.object.information[i][j] += active.constant.object.information[i][j+2]*active.constant.numbers.h + (1/2)*active.constant.object.information[i][j+4]*Math.pow(active.constant.numbers.h,2)
+                }
+            }
+            for(var i = 1; i < active.constant.object.information.length; i++){
+                    for(var j = i + 1; j < active.constant.object.information.length; j++){
+                        active.method.VelocityVerlet.acc(active.constant.object.information,i,j,0,true)
+                    }
+            }
+            for(var i = 1; i < active.constant.object.information.length; i++){
+                for(j=5;j<7;j++){
+                    active.constant.object.information[i][j] += (1/2)*(active.constant.object.information[i][j+2] + active.constant.object.information[i][j+4])*active.constant.numbers.h
+                }
+            }
+            active.method.VelocityVerlet.reset()
         },
         
         /* 

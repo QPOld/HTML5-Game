@@ -62,7 +62,7 @@ active.constant = {
         maximumFrames:1,
         splitting:4,
         fps:1000/60,
-        h:0.01, // step sizes
+        h:0.075, // step sizes
         totalMass:0,
         edgeThickness:25, // in pixels
         menuThickness:90
@@ -79,12 +79,15 @@ active.constant = {
         The others are called as usual.
     */
     RK4:{  
-        kcoefficent:function(){return [1,active.constant.numbers.h/2,active.constant.numbers.h/2,active.constant.numbers.h,1]},
-        fcoefficent:function(){return [active.constant.numbers.h/6,active.constant.numbers.h/3,active.constant.numbers.h/3,active.constant.numbers.h/6]},
+        coefficent:function(){return [1,active.constant.numbers.h/2,active.constant.numbers.h/2,1]},
+        matrix:function(){return [active.constant.numbers.h/6,active.constant.numbers.h/3,active.constant.numbers.h/3,6]},
         krx:[0,0,0,0,0], // 0 , krx1, krx2, krx3, krx4
         kry:[0,0,0,0,0],
-        kvx:[1,0,0,0,0], // 1, kvx1, kvx2, kvx3, kvx4 
-        kvy:[1,0,0,0,0]   
+        kvx:[0,0,0,0,0], // 1, kvx1, kvx2, kvx3, kvx4 
+        kvy:[0,0,0,0,0],
+        kax:[0,0,0,0,0],
+        kay:[0,0,0,0,0],
+        kxy:[0,0,0,0,0]
     },
     
     /* 

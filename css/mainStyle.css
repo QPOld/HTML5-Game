@@ -5,6 +5,10 @@ body {
 #ButtonContainer {
 	position:fixed;
 }
+#TextContainer {
+    position:fixed;
+    opacity:1;
+}
 #InputMenu {
 	position:fixed;
 	left:40%;

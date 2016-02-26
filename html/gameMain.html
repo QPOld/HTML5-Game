@@ -29,59 +29,57 @@
 	</head>
 
 	<body>
-        <div id='TextContainer'>
-            <p>
-                Press the start button to begin. Click and hold the mouse to draw circles. Click the begin button the start the simulation.
-            </p>
-        </div>
-		<div id='ButtonContainer'>
-            <!-- 
-                ../js/main.js
-                    initialize()
-            -->
-			<div id='StartButton'>
-				<input type='button' id='start' onclick='active.create.background.initialize()' value="Start">
-			</div>
-			<div id='ResetButton'>
-				<input type='button' id='reset' onclick='active.create.background.initialize()' value='Reset'>
-			</div>
-            <!-- 
-                ../js/options.js 
-                    startSimulation()
-            -->
-			<div id='BeginButton'>
-				<input type='button' id='begin' onclick='active.options.run.simulation()' value='Begin'>
-			</div>
-            <!-- 
-                ../js/options.js 
-                    draw.turnOnMenu()
-            -->
-			<div id='StopButton'>
-				<input type='button' id='stop' onclick='active.options.draw.turnOnMainMenu()' value='Stop'>
-			</div>
-            <!-- 
-                The entire menu will be hidden. The menu is controlled by the style opacity.
-                
-                ../js/render.js
-                    editCircleOff()
-                
-                ../js/object.js
-                    deleteObject()
-            -->
-			<div id='InputMenu'>
+        <div id='ButtonContainer'>
+			<button class='Button' id='reset' onclick='active.create.background.initialize()'><div>Reset</div></button>
+			<button class='Button' id='begin' onclick='active.options.run.simulation()'><div>Begin</div></button>
+			<button' class='Button' id='stop' onclick='active.options.draw.turnOnMainMenu()'><div>Stop</div></button>
+		</div>
+        
+        <div id='ObjectMenuSlideDown'>
+            <div id='InputMenu'>
 				<input type='range' id='xPosition' value='0' onchange="active.render.draw.update(this.value,'xVal');">
 				<input type='range' id='yPosition' value='0' onchange="active.render.draw.update(this.value,'yVal');">
 				<input type='range' id='radius' min='0' max='500' onchange="active.render.draw.update(this.value,'rad');">
-				<input type='button' id='confirm' value='Confirm' onclick='active.options.draw.editCircleOff()'>
-				<input type='button' id='delete' value='Delete' onclick='active.object.edit.remove()'>
+				<input type='button' id='confirm' class='Button' value='Confirm' onclick='active.options.draw.editCircleOff()'>
+				<input type='button' id='delete' class='Button' value='Delete' onclick='active.object.edit.remove()'>
+                <div id='InputMenuText'>
+                    <span id="xVal"> 0 </span>
+                    <span id="yVal"> 0 </span>
+                    <span id="rad"> 0 </span>
+                </div>
 			</div>
-			<div id='InputMenuText'>
-				<span id="xVal"> 0 </span>
-				<span id="yVal"> 0 </span>
-				<span id="rad"> 0 </span>
-			</div>
-		</div>
-
+			
+        </div>
+        
+        <div id='FrontPageButtons'>
+            <button id="HelpButton" class="Button" onclick='active.options.draw.openHelpMenu()'><div>Help</div></button>
+            <button id='CloseButton' class="Button" onclick='active.options.draw.closeHelpMenu()'><div>&larr; Close Help</div></button>
+            <button id='StartButton' class='Button' onclick='active.create.background.initialize()'><div>Start</div></button>
+            <div id="HelpMenuSlideLeft">
+                <div id='TextContainer'>
+                    <p>
+                        Press the start button.
+                    </p>
+                    <p>
+                        Click and hold the mouse to draw objects. 
+                    </p>
+                    <p>
+                        Click the begin button the start the simulation.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div id='Logo'>
+            <p>SubFi.Active</p>
+        </div>
+        <div id='Planets'>
+            <em class='planet one'></em>
+            <em class='planet two'></em>
+            <em class='planet three'></em>
+            <em class="planet left"></em>
+            <em class="planet right"></em>
+        </div> 
 	</body>
 
 </html>

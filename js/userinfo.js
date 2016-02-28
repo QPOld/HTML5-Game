@@ -35,25 +35,31 @@ active.userinfo = {
     
         */
         status: function (event){
-            document.body.onmousedown = function(event) {
-                // console.log(active.constant.object.information[active.constant.object.information.length - 1]);
-                // console.log(active.constant.object.information)
-                active.constant.mouse.position[0] = event.clientX;
-                active.constant.mouse.position[1] = event.clientY;
-                active.userinfo.dot.position()
-                if (active.object.locate.contains(active.constant.object.information, active.constant.dot.position) !== false){
-                    active.userinfo.dot.reset(active.userinfo.dot.position)
-                } 
-            }
-            document.body.onmouseup = function(event) {
-                active.constant.mouse.position[2] = event.clientX;
-                active.constant.mouse.position[3] = event.clientY;
-                active.userinfo.dot.reset(active.constant.dot.position)
-                active.render.draw.circle()
+            document.body.onclick = function() {
+                
+                active.constant.mouse.isClickable = [false,-1]
+                document.body.onmousedown = function(event) {
+                    active.constant.mouse.isClickable = [false,-1]
+                    active.constant.mouse.position[0] = event.clientX;
+                    active.constant.mouse.position[1] = event.clientY;
+                    active.userinfo.dot.position()
+                    if (active.object.locate.contains(active.constant.object.information, active.constant.dot.position) !== false){
+                        active.userinfo.dot.reset(active.userinfo.dot.position)
+                    } 
+                }
+                document.body.onmouseup = function(event) {
+                    active.constant.mouse.position[2] = event.clientX;
+                    active.constant.mouse.position[3] = event.clientY;
+                    active.userinfo.dot.reset(active.constant.dot.position)
+                    active.create.background.clear()
+                    active.create.background.frame()
+                    active.render.draw.circle(1)
+                    if(active.constant.mouse.position[0] != 0 || active.constant.mouse.position[1] != 0){
+                        active.constant.mouse.position[4] = Math.sqrt( Math.pow( active.constant.mouse.position[0] - active.constant.mouse.position[2] , 2 ) + Math.pow( active.constant.mouse.position[1] - active.constant.mouse.position[3] , 2 ) )
+                    }
+                }
             }
             active.render.draw.dot()
-            active.constant.mouse.position[4] = Math.sqrt( Math.pow( active.constant.mouse.position[0] - active.constant.mouse.position[2] , 2 ) + Math.pow( active.constant.mouse.position[1] - active.constant.mouse.position[3] , 2 ) )
-            return active.constant.mouse.position
         }
     },
     

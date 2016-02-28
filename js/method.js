@@ -20,48 +20,133 @@ active.method = {
 	create 5 x N k arrays one for each particle update at end
 	 */
 	VelocityVerlet : {
-		acc : function (object, i, j, k, temp) {
-			// make sure the objects are in the screen.!
-			var xOne = object[i][3] - active.constant.object.centerofmass[0]
-				var yOne = object[i][4] - active.constant.object.centerofmass[1]
-				var xTwo = object[j][3] - active.constant.object.centerofmass[0]
-				var yTwo = object[j][4] - active.constant.object.centerofmass[1]
-				var mu = active.constant.numbers.G * object[i][1] * object[j][1]
-				var xDif = xOne - xTwo
-				var yDif = yOne - yTwo
-				var magnitude = Math.pow((Math.pow(xDif, 2) + Math.pow(yDif, 2)), 3 / 2)
-				var separation = Math.pow((Math.pow(xDif, 2) + Math.pow(yDif, 2)), 1 / 2)
-				var maxRadius = object[i][2] + object[j][2]
-				if (separation > 0 && separation > maxRadius) {
-					var fx = (xDif) / magnitude
-					var fy = (yDif) / magnitude
-				} else {
-					var fx = 0
-						var fy = 0
-				}
-				if (temp) {
-					object[i][9] += -mu * fx / object[i][1]
-					object[i][10] += -mu * fy / object[i][1]
-					object[j][9] += mu * fx / object[j][1]
-					object[j][10] += mu * fy / object[j][1]
-				} else {
-					object[i][7] += -mu * fx / object[i][1]
-					object[i][8] += -mu * fy / object[i][1]
-					object[j][7] += mu * fx / object[j][1]
-					object[j][8] += mu * fy / object[j][1]
-				}
-
+        
+        /* 
+            active.method.VelocityVerlet.acc(object, i, j, k, temp)
+            
+            
+            Calculates the acceleration between the the ith and jth object.
+            The temp flag is for the second acceleration averaging.
+            
+            It makes the assumption that the force will be constant when two 
+            objects collide.
+        */
+		acc : function (object, i, j, temp) {
+            var self = this;
+            
+            if(i >= active.constant.object.information.length-1 ){
+                return true
+            }else {
+                // console.log(i,j)
+                var xOne = object[i][3] - active.constant.object.centerofmass[0]
+                var yOne = object[i][4] - active.constant.object.centerofmass[1]
+                var xTwo = object[j][3] - active.constant.object.centerofmass[0]
+                var yTwo = object[j][4] - active.constant.object.centerofmass[1]
+                var mu = active.constant.numbers.G * object[i][1] * object[j][1]
+                var xDif = xOne - xTwo
+                var yDif = yOne - yTwo
+                var magnitude = Math.pow((Math.pow(xDif, 2) + Math.pow(yDif, 2)), 3 / 2)
+                var separation = Math.pow((Math.pow(xDif, 2) + Math.pow(yDif, 2)), 1 / 2)
+                var maxRadius = object[i][2] + object[j][2]
+                if (separation > 0 && separation > maxRadius) {
+                var fx = (xDif) / magnitude
+                var fy = (yDif) / magnitude
+                } else {
+                    var fx = 0
+                    var fy = 0
+                }
+                if (temp) {
+                    object[i][9] += -mu * fx / object[i][1]
+                    object[i][10] += -mu * fy / object[i][1]
+                    object[j][9] += mu * fx / object[j][1]
+                    object[j][10] += mu * fy / object[j][1]
+                } else {
+                    object[i][7] += -mu * fx / object[i][1]
+                    object[i][8] += -mu * fy / object[i][1]
+                    object[j][7] += mu * fx / object[j][1]
+                    object[j][8] += mu * fy / object[j][1]
+                }
+                j++
+                if(j >= active.constant.object.information.length){
+                    i++
+                    j = i + 1
+                    
+                }
+                return self.acc(object, i, j, temp)
+            }
 		},
+        
+        /* 
+            active.method.VelocityVerlet.pos()
+        */
+        pos : function(i,j){
+            var self = this;
+            if(i >= active.constant.object.information.length ){
+                return true
+            }else {
+                
+                // console.log(i,j)
+                active.constant.object.information[i][j] += active.constant.object.information[i][j + 2] * active.constant.numbers.h + (1 / 2) * active.constant.object.information[i][j + 4] * Math.pow(active.constant.numbers.h, 2)
+				j++
+                if(j >= 5){
+                    i++
+                    j = 3
+                }
+                self.pos(i,j)
+            }
+        },
+        
+        /* 
+            active.method.VelocityVerlet.vel()
+        */
+        vel : function(i,j){
+            var self = this;
+            if(i >= active.constant.object.information.length ){
+                return true
+            }else {
+                
+                // console.log(i,j)
+                active.constant.object.information[i][j] += (1 / 2) * (active.constant.object.information[i][j + 2] + active.constant.object.information[i][j + 4]) * active.constant.numbers.h
+                j++
+                if(j >= 7){
+                    i++
+                    j = 5
+                }
+                self.vel(i,j)
+            }
+            
+        },
 
-		reset : function () {
-			for (var i = 1; i < active.constant.object.information.length; i++) {
-				active.constant.object.information[i][7] = 0
-					active.constant.object.information[i][8] = 0
-					active.constant.object.information[i][9] = 0
-					active.constant.object.information[i][10] = 0
-			}
+        /* 
+           active.method.VelocityVerlet.reset()
+           
+           Resets the acceleration for the next timestep.
+           There might be an easier way to do this.
+        */
+		reset : function (i,j) {
+            var self = this; //cache this here
+            if(i >= active.constant.object.information.length){
+                return true
+            } else {
+                active.constant.object.information[i][j] = 0
+                j++
+                if(j >= active.constant.object.information[i].length){
+                    i++
+                    j = 7
+                }
+                self.reset(i,j)
+            }
 		}
 	},
+    
+    /* 
+        active.method.RK4.function()
+        
+        Not working at the moment.
+        
+        Error exist with the K arrays.
+        Will be fixed in the future.
+    */
 	RK4 : {
 
 		acc : function (object, i, j, k) {
@@ -70,7 +155,6 @@ active.method = {
 				var yOne = object[i][4]// - active.constant.object.centerofmass[1]
 				var xTwo = object[j][3]// - active.constant.object.centerofmass[0]
 				var yTwo = object[j][4]// - active.constant.object.centerofmass[1]
-				// console.log(x,y)
 				var mu = active.constant.numbers.G * object[i][1] * object[j][1]
 				var xDif = xOne - xTwo
 				var yDif = yOne - yTwo
@@ -93,7 +177,6 @@ active.method = {
 				}
 				active.constant.RK4.kax[k] += -mu * fx / object[i][1]
 				active.constant.RK4.kay[k] += -mu * fy / object[i][1]
-				// console.log(active.constant.RK4.kax,active.constant.RK4.kay,i,j,k)
 				object[j][7] += mu * fx / object[j][1]
 				object[j][8] += mu * fy / object[j][1]
 		},
@@ -113,7 +196,6 @@ active.method = {
 				var vy = active.constant.object.information[i][6]
 
 				for (var k = 0; k < 4; k++) {
-					// console.log(active.constant.RK4.kvx[k],active.constant.RK4.matrix()[k])
 					active.constant.RK4.kxy[0] += active.constant.RK4.kvx[k] * active.constant.RK4.matrix()[k]
 					active.constant.RK4.kxy[1] += active.constant.RK4.kvy[k] * active.constant.RK4.matrix()[k]
 					active.constant.RK4.kxy[2] += active.constant.RK4.kax[k] * active.constant.RK4.matrix()[k]
@@ -124,7 +206,6 @@ active.method = {
 				active.constant.object.information[i][4] = ry + active.constant.RK4.kxy[1]// + active.constant.object.centerofmass[0]
 				active.constant.object.information[i][5] = vx + active.constant.RK4.kxy[2]
 				active.constant.object.information[i][6] = vy + active.constant.RK4.kxy[3]
-				//getting nan left off here
 		},
 
 		/*

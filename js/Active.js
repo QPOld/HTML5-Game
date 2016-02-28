@@ -2,6 +2,8 @@
 SubFi - 2016
 Michael Parkinson
 
+SubFi.Active
+
 Stores namespace.
 All api and constants will be called from the active namespace.
 

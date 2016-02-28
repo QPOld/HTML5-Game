@@ -20,17 +20,19 @@ active.render = {
 		Used to provide an animation.
 
 		 */
-		circle : function () {
-			active.create.background.clear()
-			active.create.background.frame()
-			active.constant.context.ctx().fillStyle = "#000000";
-			active.constant.context.ctx().fill()
-			for (var i = 1; i < active.constant.object.information.length; i++) { // the first element is the default position (
-				active.constant.context.ctx().beginPath();
+		circle : function (i) {
+            var self = this;
+            // console.log(i,active.constant.object.information.length)
+            if(i>=active.constant.object.information.length){
+                return true
+            }else {
+                // console.log(i,active.constant.object.information[i])
+                active.constant.context.ctx().beginPath();
 				active.constant.context.ctx().arc(active.constant.object.information[i][3], active.constant.object.information[i][4], active.constant.object.information[i][2], 0, 2 * Math.PI);
 				active.constant.context.ctx().stroke();
-			}
-
+                i++
+                self.circle(i)
+            }
 		},
 
 		/*
@@ -65,11 +67,7 @@ active.render = {
 		 */
 		status : function () {
 			var checkOpacity = document.getElementById('begin').style.opacity;
-			if (checkOpacity > 0) {
-				return true
-			} else {
-				return false
-			};
+			if (checkOpacity > 0) {return true} else {return false}
 		},
 
 		/*
@@ -84,6 +82,19 @@ active.render = {
 		 */
 		update(val, buttonName) {
 			document.getElementById(buttonName).textContent = val;
-		}
-	}
+		},
+        
+        /* 
+            active.render.draw.frame()
+        */
+        frame: function() {
+            if (active.constant.numbers.updating == active.constant.numbers.maximumFrames) {
+				active.create.background.clear()
+				active.create.background.frame()
+				active.render.draw.circle(1)
+				active.constant.numbers.updating = 0
+			}
+			active.constant.numbers.updating++
+        }
+	} // end of draw
 }

@@ -20,12 +20,9 @@ active.create = {
 		frame : function () {
 			active.constant.windows.canvas.width = active.constant.windows.width
             active.constant.windows.canvas.height = active.constant.windows.height
-            // active.constant.windows.canvas.width = 800
-            // active.constant.windows.canvas.height = 600
             active.constant.context.ctx().fillStyle = "#9999ff";
 			active.constant.context.ctx().fill()
 			active.constant.context.ctx().fillRect(0, 0, active.constant.windows.canvas.width, active.constant.windows.canvas.height);
-            // active.constant.context.ctx().fillRect(0, 0, 800, 600);
 		},
 
 		/*

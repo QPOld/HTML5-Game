@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <!--
 	SubFi - 2016
 	Michael Parkinson
@@ -6,11 +7,10 @@
     All HTML element will be placed into this html file.
     
 -->
-<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta charset='utf-8'>
-		<meta name="author" content="SubFi">
+		<meta name='author' content='SubFi'>
         <title> SubFi </title>
         <!-- Style sheets are contained in the ../css folder. -->
 		<link rel='stylesheet' type='text/css' href='../css/mainStyle.css' media='screen' />
@@ -30,32 +30,32 @@
 
 	<body>
         <div id='ButtonContainer'>
-			<button class='Button' id='reset' onclick='active.create.background.initialize()'><div>Reset</div></button>
-			<button class='Button' id='begin' onclick='active.options.run.simulation()'><div>Begin</div></button>
-			<button' class='Button' id='stop' onclick='active.options.draw.turnOnMainMenu()'><div>Stop</div></button>
+			<button class='Button' id='reset' onclick='active.create.background.initialize()'>Reset</button>
+			<button class='Button' id='begin' onclick='active.options.run.simulation()'>Begin</button>
+			<button class='Button' id='stop' onclick='active.options.draw.turnOnMainMenu()'>Stop</button>
 		</div>
         
         <div id='ObjectMenuSlideDown'>
             <div id='InputMenu'>
-				<input type='range' id='xPosition' value='0' onchange="active.render.draw.update(this.value,'xVal');">
-				<input type='range' id='yPosition' value='0' onchange="active.render.draw.update(this.value,'yVal');">
-				<input type='range' id='radius' min='0' max='500' onchange="active.render.draw.update(this.value,'rad');">
+				<input type='range' id='xPosition' onchange='active.render.draw.update(this.value,"xVal")'>
+				<input type='range' id='yPosition' onchange='active.render.draw.update(this.value,"yVal")'>
+				<input type='range' id='radius' onchange='active.render.draw.update(this.value,"rad")'>
 				<input type='button' id='confirm' class='Button' value='Confirm' onclick='active.options.draw.editCircleOff()'>
 				<input type='button' id='delete' class='Button' value='Delete' onclick='active.object.edit.remove()'>
                 <div id='InputMenuText'>
-                    <span id="xVal"> 0 </span>
-                    <span id="yVal"> 0 </span>
-                    <span id="rad"> 0 </span>
+                    <span id='xVal'> 0 </span>
+                    <span id='yVal'> 0 </span>
+                    <span id='rad'> 0 </span>
                 </div>
 			</div>
 			
         </div>
         
         <div id='FrontPageButtons'>
-            <button id="HelpButton" class="Button" onclick='active.options.draw.openHelpMenu()'><div>Help</div></button>
-            <button id='CloseButton' class="Button" onclick='active.options.draw.closeHelpMenu()'><div>&larr; Close Help</div></button>
-            <button id='StartButton' class='Button' onclick='active.create.background.initialize()'><div>Start</div></button>
-            <div id="HelpMenuSlideLeft">
+            <button id='HelpButton' class='Button' onclick='active.options.draw.openHelpMenu()'>Help</button>
+            <button id='CloseButton' class='Button' onclick='active.options.draw.closeHelpMenu()'>&larr; Close Help</button>
+            <button id='StartButton' class='Button' onclick='active.create.background.initialize()'>Start</button>
+            <div id='HelpMenuSlideLeft'>
                 <div id='TextContainer'>
                     <p>
                         Press the start button.
@@ -77,10 +77,9 @@
             <em class='planet one'></em>
             <em class='planet two'></em>
             <em class='planet three'></em>
-            <em class="planet left"></em>
-            <em class="planet right"></em>
+            <em class='planet left'></em>
+            <em class='planet right'></em>
         </div> 
 	</body>
 
 </html>
-

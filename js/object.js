@@ -23,8 +23,8 @@ active.object = {
 		 */
 		list : function () {
 			document.getElementById('xPosition').value = active.constant.object.information[active.constant.numbers.index][3]
-				document.getElementById('yPosition').value = active.constant.object.information[active.constant.numbers.index][4]
-				document.getElementById('radius').value = active.constant.object.information[active.constant.numbers.index][2]
+			document.getElementById('yPosition').value = active.constant.object.information[active.constant.numbers.index][4]
+			document.getElementById('radius').value = active.constant.object.information[active.constant.numbers.index][2]
 		},
 
 		/*
@@ -36,19 +36,24 @@ active.object = {
 		else do nothing.
 		 */
 		store : function () {
-			// console.log(active.constant.object.information.length)
-			var phaseSpace = [active.constant.numbers.objects, Math.PI * active.constant.numbers.rho * Math.pow(active.constant.mouse.position[4], 2), active.constant.mouse.position[4], active.constant.mouse.position[2], active.constant.mouse.position[3], 0, 0, 0, 0, 0, 0]
+            var radius = active.constant.mouse.position[4]
+            if(radius > active.constant.numbers.maxRadius){
+                radius = active.constant.numbers.maxRadius
+            }
+			var phaseSpace = [active.constant.numbers.objects, Math.PI * active.constant.numbers.rho * Math.pow(radius, 2), radius, active.constant.mouse.position[2], active.constant.mouse.position[3], 0, 0, 0, 0, 0, 0]
 			var checkArray = false
-				checkArray = active.object.locate.contains(active.constant.object.information, phaseSpace)
-				if (checkArray) {
-					active.constant.object.information.push(phaseSpace)
-					active.constant.numbers.objects++
-					active.userinfo.mouse.reset()
-					active.create.background.clear()
-					active.create.background.frame()
-					active.render.draw.circle()
-				}
-
+            checkArray = active.object.locate.contains(active.constant.object.information, phaseSpace)
+            if (checkArray) {
+                // console.log(active.constant.numbers.objects ,active.constant.numbers.maxObjects)
+                if(active.constant.numbers.objects < active.constant.numbers.maxObjects){
+                   active.constant.object.information.push(phaseSpace)
+                    active.constant.numbers.objects++
+                    active.userinfo.mouse.reset()
+                    active.create.background.clear()
+                    active.create.background.frame()
+                    active.render.draw.circle(1) 
+                } 
+            }
 		},
 
 		/*
@@ -59,7 +64,7 @@ active.object = {
 		 */
 		reset : function (objectInformation) {
 			objectInformation.length = 0
-				active.constant.numbers.objects = 0
+			active.constant.numbers.objects = 0
 		},
 
 		/*
@@ -69,31 +74,16 @@ active.object = {
 		number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay
 		0 		 1 	     2	   3   4    5    6    7    8
 
-		Still testing the method.
+
+        This method works but needs to be redone.
 
 		 */
 		update : function () {
-			for (var i = 1; i < active.constant.object.information.length; i++) {
-				for (var j = i + 1; j < active.constant.object.information.length; j++) {
-					active.method.VelocityVerlet.acc(active.constant.object.information, i, j, 0, false)
-				}
-			}
-			for (var i = 1; i < active.constant.object.information.length; i++) {
-				for (j = 3; j < 5; j++) {
-					active.constant.object.information[i][j] += active.constant.object.information[i][j + 2] * active.constant.numbers.h + (1 / 2) * active.constant.object.information[i][j + 4] * Math.pow(active.constant.numbers.h, 2)
-				}
-			}
-			for (var i = 1; i < active.constant.object.information.length; i++) {
-				for (var j = i + 1; j < active.constant.object.information.length; j++) {
-					active.method.VelocityVerlet.acc(active.constant.object.information, i, j, 0, true)
-				}
-			}
-			for (var i = 1; i < active.constant.object.information.length; i++) {
-				for (j = 5; j < 7; j++) {
-					active.constant.object.information[i][j] += (1 / 2) * (active.constant.object.information[i][j + 2] + active.constant.object.information[i][j + 4]) * active.constant.numbers.h
-				}
-			}
-			active.method.VelocityVerlet.reset()
+            active.method.VelocityVerlet.acc(active.constant.object.information, 1, 2, false)
+            active.method.VelocityVerlet.pos(1,3)
+            active.method.VelocityVerlet.acc(active.constant.object.information, 1, 2, true)
+            active.method.VelocityVerlet.vel(1,5)
+			active.method.VelocityVerlet.reset(0,0)
 		},
 
 		/*
@@ -106,7 +96,9 @@ active.object = {
 		 */
 		remove : function () {
 			active.constant.object.information.splice(active.constant.numbers.index, 1)
-			active.render.draw.circle()
+            active.create.background.clear()
+            active.create.background.frame()
+			active.render.draw.circle(1)
 			active.options.draw.editCircleOff()
 			active.userinfo.mouse.reset()
 		},
@@ -125,15 +117,15 @@ active.object = {
 		 */
 		size : function () {
 			var radius = active.constant.object.information[active.constant.numbers.index][2]
-				if (radius > active.constant.windows.width / 8 || radius > active.constant.windows.height / 8) {
-					var newXVal = active.constant.object.information[active.constant.numbers.index][3] + 25
-						var newYVal = active.constant.object.information[active.constant.numbers.index][4] + 25
-						for (var i = 0; i < active.constant.numbers.splitting; i++) {
-							active.constant.mouse.position = [-newYVal, newXVal, 0, 0, radius / 4]
-							active.object.edit.store()
-						}
-						active.object.edit.remove()
-				}
+            if (radius > active.constant.windows.width / 8 || radius > active.constant.windows.height / 8) {
+                var newXVal = active.constant.object.information[active.constant.numbers.index][3] + 25
+                    var newYVal = active.constant.object.information[active.constant.numbers.index][4] + 25
+                    for (var i = 0; i < active.constant.numbers.splitting; i++) {
+                        active.constant.mouse.position = [-newYVal, newXVal, 0, 0, radius / 4]
+                        active.object.edit.store()
+                    }
+                    active.object.edit.remove()
+            }
 		}
 	}, // end of active.object.edit
 
@@ -181,23 +173,30 @@ active.object = {
 
 
 		 */
-		clickable : function () {
-			if (active.constant.mouse.position[1] < active.constant.numbers.menuThickness) {
-				return [false, -1]// Redirects main menu control to different functions.
-			}
-			for (var i = 0; i < active.constant.object.information.length; i++) {
-				var xObject = active.constant.object.information[i][3]
-					var yObject = active.constant.object.information[i][4]
-					var xMouse = active.constant.mouse.position[0]
-					var yMouse = active.constant.mouse.position[1]
-					var checkDistance = Math.sqrt(Math.pow(xObject - xMouse, 2) + Math.pow(yObject - yMouse, 2))
-					if (checkDistance < active.constant.object.information[i][2]) {
-						active.userinfo.mouse.reset()
-						active.constant.numbers.index = i
-							return [true, i]
-					}
-			}
-			return [false, -1]
+		clickable : function (i) {
+            var total = active.constant.object.information.length;
+            if ( i >= total) {return [false, -1]} // Search within the object length.
+            var xObject = active.constant.object.information[i][3]
+            var yObject = active.constant.object.information[i][4]
+            var xMouse = active.constant.mouse.position[0]
+            var yMouse = active.constant.mouse.position[1]
+            var checkDistance = Math.sqrt(Math.pow(xObject - xMouse, 2) + Math.pow(yObject - yMouse, 2))
+            var self = this;
+			if (yMouse < active.constant.numbers.menuThickness) { // Leaving a menu area for now.
+				active.constant.mouse.isClickable = [false, -1]
+                return true
+			}else if (checkDistance == 0){ // Are you even clicking?
+                active.constant.mouse.isClickable = [false, -1]
+                return true
+            }else if (checkDistance > 0 && checkDistance < active.constant.object.information[i][2]) { // Are you inside the object?
+                active.userinfo.mouse.reset()
+                active.constant.numbers.index = i
+                active.constant.mouse.isClickable = [true, i]
+                return true
+            }else { // keep searching.
+                i++
+                self.clickable(i)
+            }
 		},
 
 		/*
@@ -245,9 +244,12 @@ active.object = {
 		> keeping the effect causes visually good boundary conditions
 		and bad flickering.
 		 */
-		boundaries : function () {
-			for (var i = 1; i < active.constant.object.information.length; i++) {
-				if (active.constant.object.information[i][3] + active.constant.object.information[i][2] >= active.constant.windows.width) {
+		boundaries : function (i) {
+            var self = this;
+            if(i >= active.constant.object.information.length){
+                return true
+            }else{
+                if (active.constant.object.information[i][3] + active.constant.object.information[i][2] >= active.constant.windows.width) {
 					active.constant.object.information[i][3] -= active.constant.windows.width
 				} else if (active.constant.object.information[i][4] + active.constant.object.information[i][2] >= active.constant.windows.height) {
 					active.constant.object.information[i][4] -= active.constant.windows.height
@@ -255,10 +257,10 @@ active.object = {
 					active.constant.object.information[i][3] += active.constant.windows.width
 				} else if (active.constant.object.information[i][4] - active.constant.object.information[i][2] <= 0) {
 					active.constant.object.information[i][4] += active.constant.windows.height
-				} else {
-					continue
 				}
-			}
+                i++
+                self.boundaries(i)
+            }
 		},
 
 		/*

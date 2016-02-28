@@ -2,9 +2,9 @@
 SubFi - 2016
 Michael Parkinson
 
-Constants
+Constants and Arrays.
 
-Anything that is constant.
+
  */
 active.constant = {
 
@@ -19,7 +19,8 @@ active.constant = {
 	0            1            2          3          4
 	 */
 	mouse : {
-		position : [0, 0, 0, 0, 0]
+		position : [0, 0, 0, 0, 0],
+        isClickable : [false,-1]
 	},
 
 	/*
@@ -38,6 +39,10 @@ active.constant = {
 
 	active.constant.object.information is an array storing the phase space
 	for an object plus additional information.
+    
+    active.constant.object.centerofmass
+    
+    used to calculate the center of mass for the system of N particles.
 
 	number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay \ axtemp \ aytemp
 	0 		 1 	     2	   3   4    5    6    7    8      9       10
@@ -54,6 +59,7 @@ active.constant = {
 	 */
 	numbers : {
 		objects : 0,
+        maxObjects : 50,
 		rho : 1, // solar mass / au^3
 		G : 39.4, // solar mass au years
 		index : -1,
@@ -62,10 +68,11 @@ active.constant = {
 		maximumFrames : 1,
 		splitting : 4,
 		fps : 1000 / 60,
-		h : 0.065, // step sizes
+		h : 0.015, // step sizes
 		totalMass : 0,
 		edgeThickness : 25, // in pixels
-		menuThickness : 90
+		menuThickness : 90,
+        maxRadius: 25
 	},
 
 	/*

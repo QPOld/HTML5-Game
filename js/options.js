@@ -59,6 +59,8 @@ active.options = {
             document.getElementById('xPosition').max = active.constant.windows.width.toString()
             document.getElementById('yPosition').min = '0'
             document.getElementById('yPosition').max = active.constant.windows.height.toString()
+            document.getElementById('radius').min = '1'
+            document.getElementById('radius').max = active.constant.numbers.maxRadius.toString()
             document.getElementById('ObjectMenuSlideDown').style.opacity = 0.75
 			document.getElementById('InputMenu').style.opacity = 0.75
             document.getElementById('InputMenu').disabled = false
@@ -90,7 +92,7 @@ active.options = {
                     active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('radius').value, 10)
 				} catch (err) {}
 			}
-			active.render.draw.circle(active.constant.object.information)
+			active.render.draw.circle(1)
 			active.userinfo.mouse.reset()
 		},
 
@@ -196,5 +198,6 @@ active.options = {
 			}
 
 		}
-	}
+	}, // end of run
+    
 }

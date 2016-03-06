@@ -18,11 +18,11 @@ active.create = {
 
 		 */
 		frame : function () {
-			active.constant.windows.canvas.width = active.constant.windows.width
-            active.constant.windows.canvas.height = active.constant.windows.height
-            active.constant.context.ctx().fillStyle = "#9999ff";
+			active.constant.windows.canvas.width = active.constant.windows.width - active.constant.numbers.edgeThickness
+            active.constant.windows.canvas.height = active.constant.windows.height - active.constant.numbers.edgeThickness
+            active.constant.context.ctx().fillStyle = "#faf4ff";
 			active.constant.context.ctx().fill()
-			active.constant.context.ctx().fillRect(0, 0, active.constant.windows.canvas.width, active.constant.windows.canvas.height);
+			active.constant.context.ctx().fillRect(active.constant.numbers.edgeThickness, active.constant.numbers.edgeThickness, active.constant.windows.canvas.width, active.constant.windows.canvas.height);
 		},
 
 		/*

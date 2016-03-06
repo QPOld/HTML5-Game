@@ -13,6 +13,7 @@ body {
     height:100%;
     display: block;
     background-size: cover;
+    background-color:#faf4ff;
 }
 /* 
     Simulation Control
@@ -41,6 +42,21 @@ body {
 	position:relative;
     disabled:true;
 	opacity:0.0;
+    padding: 5px 5px 5px 5px;
+}
+#menu {
+    position:relative;
+    opacity:0.0;
+    padding: 5px 5px 5px 5px;
+}
+#closemenu {
+    position:relative;
+    opacity:0.0;
+    padding: 5px 5px 5px 5px;
+}
+#acceptmenu {
+    position:relative;
+    opacity:0.0;
     padding: 5px 5px 5px 5px;
 }
 
@@ -113,6 +129,23 @@ body {
    -webkit-transition: opacity 0s;
     
 }
+#HelpMenuSlideRight{
+    opacity:0;
+    width:100%;
+    height:100%;
+    position:relative;
+    transition: opacity 0.5s;
+   -moz-transition: opacity 0.5s;
+   -webkit-transition: opacity 0.5s;
+    
+}
+#HelpMenuSlideRight:active{
+    opacity:0;
+    transition: opacity 0s;
+   -moz-transition: opacity 0s;
+   -webkit-transition: opacity 0s;
+    
+}
 #TextContainer {
     background-color:#85dbe4;
     position:relative;
@@ -123,6 +156,16 @@ body {
 	-webkit-border-radius:10px;
     border:2px solid #1b767e;
     padding:10px 10px 10px 10px;
+    font-family: Gill Sans / Gill Sans MT, sans-serif;
+    font-size: 30px;
+    text-align: center;
+    text-rendering: optimizeLegibility;
+    text-shadow: 
+      -1px -1px 0 #767676, 
+
+      -1px -1px -1px #767474, 
+
+      0 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* 
@@ -214,15 +257,24 @@ body {
     -webkit-transition: opacity 0s;
 }
 
+
+/* Front Page Animations */
+#FrontPageAnimations{
+    position: fixed;
+    height:10%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 /* Planet Animation */
 #Planets {
     margin: 0;
     display: flex;
     justify-content: center;
-    position: absolute;
+    position: relative;
     overflow: visible;
-    top:50%;
-    left:26.0%;
+    top:-160%;
+    left:-40%;
 }
 
 #Planets::before {
@@ -235,10 +287,10 @@ body {
     box-sizing: border-box;
 }
 em {
-    bottom:-320%;
+    bottom:0%;
     left:0%;   
     font-size: 15vmin;
-    position: fixed;
+    position: relative;
     font-style: normal;
     width: 10vmin;
     text-align: center;
@@ -332,21 +384,25 @@ p{
     position:relative;
 }
 #Logo{
-    position:absolute;
+    position:relative;
     color: #333333;
-    width: auto;
-    height: auto;
-    left:33%;
-    font-family: Gill Sans / Gill Sans MT, sans-serif;\
-    opacity:0;
+    left:0%;
+    font-family: Gill Sans / Gill Sans MT, sans-serif;
+    opacity:1;
     font-size: 80px;
     text-align: center;
+    text-rendering: optimizeLegibility;
+    text-shadow: 
+      1px -1px 0 #767676, 
 
-    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-       -moz-animation: fadein 2s; /* Firefox < 16 */
-        -ms-animation: fadein 2s; /* Internet Explorer */
-         -o-animation: fadein 2s; /* Opera < 12.1 */
-            animation: fadein 2s;
+      -2px 4px 1px #767474, 
+
+      0 20px 20px rgba(0, 0, 0, 0.1);
+    -webkit-animation: fadein 1.2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1.2s; /* Firefox < 16 */
+        -ms-animation: fadein 1.2s; /* Internet Explorer */
+         -o-animation: fadein 1.2s; /* Opera < 12.1 */
+            animation: fadein 1.2s;
 }
 
 @keyframes fadein {

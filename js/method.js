@@ -33,11 +33,9 @@ active.method = {
         */
 		acc : function (object, i, j, temp) {
             var self = this;
-            
             if(i >= active.constant.object.information.length-1 ){
                 return true
             }else {
-                // console.log(i,j)
                 var xOne = object[i][3] - active.constant.object.centerofmass[0]
                 var yOne = object[i][4] - active.constant.object.centerofmass[1]
                 var xTwo = object[j][3] - active.constant.object.centerofmass[0]

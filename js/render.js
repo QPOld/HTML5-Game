@@ -48,7 +48,7 @@ active.render = {
 		 */
 		dot : function () {
 			if (active.constant.mouse.position[1] > 75) { // Make sure you are not clicking on a menu option.
-				active.constant.context.ctx().fillStyle = "#4ad32c"
+				active.constant.context.ctx().fillStyle = "#b3ffb3"
 					active.constant.context.ctx().fill()
 					active.constant.context.ctx().beginPath()
 					active.constant.context.ctx().arc(active.constant.mouse.position[0], active.constant.mouse.position[1], 10, 0, 2 * Math.PI)
@@ -66,8 +66,15 @@ active.render = {
 
 		 */
 		status : function () {
-			var checkOpacity = document.getElementById('begin').style.opacity;
-			if (checkOpacity > 0) {return true} else {return false}
+			var checkBegin = document.getElementById('begin').style.opacity;
+            var checkMenu = document.getElementById('menu').style.opacity;
+			if (checkBegin > 0 && checkMenu > 0) { // drawing mode
+                return "draw"
+            } else if(checkBegin > 0 && checkMenu == 0){ // enter menu
+                return "menu"
+            } else { // simulate mode
+                return "simulate"
+            }
 		},
 
 		/*

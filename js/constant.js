@@ -45,7 +45,7 @@ active.constant = {
     used to calculate the center of mass for the system of N particles.
 
 	number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay \ axtemp \ aytemp
-	0 		 1 	     2	   3   4    5    6    7    8      9       10
+	0 		      1 	  2	    3   4    5    6    7    8      9       10
 	 */
 	object : {
 		information : [],

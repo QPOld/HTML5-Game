@@ -9,6 +9,9 @@
 -->
 <html>
 	<head>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
 		<meta charset='utf-8'>
 		<meta name='author' content='SubFi'>
         <title> SubFi </title>
@@ -33,6 +36,14 @@
 			<button class='Button' id='reset' onclick='active.create.background.initialize()'>Reset</button>
 			<button class='Button' id='begin' onclick='active.options.run.simulation()'>Begin</button>
 			<button class='Button' id='stop' onclick='active.options.draw.turnOnMainMenu()'>Stop</button>
+            <button class='Button' id='menu' onclick='active.options.draw.openSystemMenu()'>Menu</button>
+            <button class='Button' id='closemenu' onclick='active.options.draw.closeSystemMenu()'>CloseMenu</button>
+            <button class='Button' id='acceptmenu' onclick='active.options.draw.acceptSystemMenu()'>Accept &#10004;</button>
+            <div id='HelpMenuSlideRight'>
+                <div id='TextContainer'> 
+                    <input type='range' id='radius'>
+                </div>
+            </div>
 		</div>
         
         <div id='ObjectMenuSlideDown'>
@@ -70,16 +81,18 @@
             </div>
         </div>
         
-        <div id='Logo'>
-            <p>SubFi.Active</p>
+        <div id='FrontPageAnimations'>
+            <div id='Logo'>
+                <p>SubFi &nbsp; &nbsp; &nbsp; Active</p>
+            </div>
+            <div id='Planets'>
+                <em class='planet one'></em>
+                <em class='planet two'></em>
+                <em class='planet three'></em>
+                <em class='planet left'></em>
+                <em class='planet right'></em>
+            </div>
         </div>
-        <div id='Planets'>
-            <em class='planet one'></em>
-            <em class='planet two'></em>
-            <em class='planet three'></em>
-            <em class='planet left'></em>
-            <em class='planet right'></em>
-        </div> 
 	</body>
 
 </html>

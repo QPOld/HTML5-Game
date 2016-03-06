@@ -180,7 +180,7 @@ active.object = {
             var yObject = active.constant.object.information[i][4]
             var xMouse = active.constant.mouse.position[0]
             var yMouse = active.constant.mouse.position[1]
-            var checkDistance = Math.sqrt(Math.pow(xObject - xMouse, 2) + Math.pow(yObject - yMouse, 2))
+            var checkDistance = Math.sqrt( Math.pow(xObject - xMouse, 2) + Math.pow(yObject - yMouse, 2) )
             var self = this;
 			if (yMouse < active.constant.numbers.menuThickness) { // Leaving a menu area for now.
 				active.constant.mouse.isClickable = [false, -1]
@@ -249,9 +249,9 @@ active.object = {
             if(i >= active.constant.object.information.length){
                 return true
             }else{
-                if (active.constant.object.information[i][3] + active.constant.object.information[i][2] >= active.constant.windows.width) {
+                if (active.constant.object.information[i][3] + active.constant.object.information[i][2] >= active.constant.windows.width - active.constant.numbers.edgeThickness) {
 					active.constant.object.information[i][3] -= active.constant.windows.width
-				} else if (active.constant.object.information[i][4] + active.constant.object.information[i][2] >= active.constant.windows.height) {
+				} else if (active.constant.object.information[i][4] + active.constant.object.information[i][2] >= active.constant.windows.height - active.constant.numbers.edgeThickness) {
 					active.constant.object.information[i][4] -= active.constant.windows.height
 				} else if (active.constant.object.information[i][3] - active.constant.object.information[i][2] <= 0) {
 					active.constant.object.information[i][3] += active.constant.windows.width

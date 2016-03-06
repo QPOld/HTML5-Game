@@ -11,7 +11,35 @@ active.options = {
 	Any menu options related to drawing go here.
 	 */
 	draw : {
-
+        /* 
+            active.options.draw.openSystemMenu()
+        */
+        openSystemMenu : function () {
+            document.getElementById('menu').style.opacity = 0.0
+            document.getElementById('closemenu').style.opacity = 0.75
+            document.getElementById('acceptmenu').style.opacity = 0.75
+            document.getElementById('HelpMenuSlideRight').style.opacity = 0.75
+        },
+        
+        /* 
+            active.options.draw.closeSystemMenu()
+        */
+        closeSystemMenu : function () {
+            document.getElementById('menu').style.opacity = 0.75
+            document.getElementById('closemenu').style.opacity = 0.0
+            document.getElementById('acceptmenu').style.opacity = 0.0
+            document.getElementById('HelpMenuSlideRight').style.opacity = 0.0
+        },
+        
+        /* 
+            active.options.draw.acceptSystemMenu()
+        */
+        acceptSystemMenu : function () {
+            document.getElementById('menu').style.opacity = 0.75
+            document.getElementById('closemenu').style.opacity = 0.0
+            document.getElementById('acceptmenu').style.opacity = 0.0
+            document.getElementById('HelpMenuSlideRight').style.opacity = 0.0
+        },
 		/*
 		active.options.draw.openHelpMenu()
 
@@ -92,6 +120,8 @@ active.options = {
                     active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('radius').value, 10)
 				} catch (err) {}
 			}
+            active.create.background.clear()
+            active.create.background.frame()
 			active.render.draw.circle(1)
 			active.userinfo.mouse.reset()
 		},
@@ -126,6 +156,9 @@ active.options = {
 
 			document.getElementById('begin').style.opacity = 0.75; // Turn on the opacity for the begin button.
 			document.getElementById('begin').disabled = false;
+            
+            document.getElementById('menu').style.opacity = 0.75; // Turn on the opacity for the begin button.
+			document.getElementById('menu').disabled = false;
 
 			document.getElementById('stop').style.opacity = 0; // Turn off the opacity for the stop button.
 			document.getElementById('stop').disabled = true;
@@ -181,22 +214,19 @@ active.options = {
 		initialConditions : function () {
 			for (var i = 0; i < active.constant.object.information.length; i++) {
 				var x = active.constant.object.information[i][3] - active.constant.object.centerofmass[0]
-					var y = active.constant.object.information[i][4] - active.constant.object.centerofmass[1]
-					var mu = active.constant.numbers.G * (active.constant.numbers.totalMass)
-					var top = 1 + Math.pow(y, 2) / Math.pow(x, 2)
-					var bot = Math.pow(Math.pow(x, 2) + Math.pow(y, 2), 3)
-					if (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) < active.constant.object.information[i][2]) {
-						var vx = 0
-							var vy = 0
-					} else {
-						var mu = active.constant.numbers.G * (active.constant.numbers.totalMass)
-							var vx = -Math.sqrt(mu) * x * y * Math.sqrt(top / bot) // incorrect velocities
-							var vy = Math.sqrt(mu) * Math.pow(x, 2) * Math.sqrt(top / bot)
-					}
-					active.constant.object.information[i][5] = vx
-					active.constant.object.information[i][6] = vy
+                var y = active.constant.object.information[i][4] - active.constant.object.centerofmass[1]
+                var r = Math.sqrt( Math.pow(x, 2) + Math.pow(y, 2) )
+                var mu = active.constant.numbers.G * (active.constant.numbers.totalMass)
+                if (r < active.constant.object.information[i][2] ) {
+                    var vx = 0
+                    var vy = 0
+                }else {
+                    var vx = Math.sqrt(mu / Math.pow(r,3) )*Math.cos(Math.atan2(y,x))
+                    var vy = -Math.sqrt(mu / Math.pow(r,3) )*Math.sin(Math.atan2(y,x))
+                }
+                active.constant.object.information[i][5] = vx
+                active.constant.object.information[i][6] = vy
 			}
-
 		}
 	}, // end of run
     

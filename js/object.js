@@ -4,7 +4,7 @@ Michael Parkinson
 Anything related to storing object information.
 
 number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay
-0 		 1 	     2	   3   4    5    6    7    8
+    0 		 1 	      2	    3   4    5    6    7    8
 
  */
 active.object = {
@@ -40,7 +40,7 @@ active.object = {
             if(radius > active.constant.numbers.maxRadius){
                 radius = active.constant.numbers.maxRadius
             }
-			var phaseSpace = [active.constant.numbers.objects, Math.PI * active.constant.numbers.rho * Math.pow(radius, 2), radius, active.constant.mouse.position[2], active.constant.mouse.position[3], 0, 0, 0, 0, 0, 0]
+			var phaseSpace = [active.constant.numbers.objects, Math.PI * active.constant.numbers.rho * Math.pow(radius, 2), radius, active.constant.mouse.position[2], active.constant.mouse.position[3], active.constant.random.uniform(-20,20), active.constant.random.uniform(-20,20), 0, 0, 0, 0]
 			var checkArray = false
             checkArray = active.object.locate.contains(active.constant.object.information, phaseSpace)
             if (checkArray) {

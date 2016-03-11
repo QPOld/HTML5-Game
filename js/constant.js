@@ -72,7 +72,11 @@ active.constant = {
 		totalMass : 0,
 		edgeThickness : 25, // in pixels
 		menuThickness : 90,
-        maxRadius: 25
+        maxRadius : 25,
+        dotRadius : 5,
+        vectorScale : 75,
+        triangleHeight: 10, // in pixels
+        triangleBase: 25 // in pixels
 	},
 
 	/*
@@ -125,7 +129,7 @@ active.constant = {
 	},
 
 	/*
-	active.constant.random.uniform()
+	active.constant.random.uniform(min,max)
 
 	Generates a random number between min and max.
 	 */
@@ -133,5 +137,18 @@ active.constant = {
 		uniform : function (min, max) {
 			return Math.random() * (max - min) + min;
 		}
-	}
+	},
+    
+    /* 
+    active.constant.rotate.byAngle(x1,x2,theta)
+    
+    Takes a 2d vector and rotates it by the angle theta. This assumes that x1,x2 are components to a normalized vector.
+    */
+    rotate : {
+        byAngle : function (x1,x2,theta) {
+            var x1p = Math.cos(theta)*x1 - Math.sin(theta)*x2
+            var x2p = Math.sin(theta)*x1 - Math.cos(theta)*x2
+            return [x1p,x2p]
+        }
+    }
 }

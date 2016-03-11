@@ -51,10 +51,47 @@ active.render = {
 				active.constant.context.ctx().fillStyle = "#b3ffb3"
 					active.constant.context.ctx().fill()
 					active.constant.context.ctx().beginPath()
-					active.constant.context.ctx().arc(active.constant.mouse.position[0], active.constant.mouse.position[1], 10, 0, 2 * Math.PI)
+					active.constant.context.ctx().arc(active.constant.mouse.position[0], active.constant.mouse.position[1], active.constant.numbers.dotRadius, 0, 2 * Math.PI)
 					active.constant.context.ctx().stroke()
 			}
 		},
+        
+        /* 
+        active.render.draw.velocityVector()
+        
+        Draws the velocity vector for the object associated with active.constant.numbers.index.
+        */
+        velocityVector : function() {
+            var x = active.constant.object.information[active.constant.numbers.index][3]
+            var y = active.constant.object.information[active.constant.numbers.index][4]
+            var vx = active.constant.object.information[active.constant.numbers.index][5]
+            var vy = active.constant.object.information[active.constant.numbers.index][6]
+            vx = vx/Math.hypot(vx,vy) // normalize
+            vy = vy/Math.hypot(vx,vy)// normalize
+            
+            
+            // ARROW METHOD
+            
+            var theta = Math.atan2(vy,vx)
+            active.constant.context.ctx().beginPath();
+            active.constant.context.ctx().fillStyle = "#000000"
+            var tox = x+active.constant.numbers.vectorScale*vx
+            var toy = y+active.constant.numbers.vectorScale*vy
+            active.constant.context.ctx().moveTo(tox,toy);           
+            active.constant.context.ctx().lineTo(tox-active.constant.numbers.triangleHeight*Math.cos(theta-Math.PI/7),toy-active.constant.numbers.triangleHeight*Math.sin(theta-Math.PI/7));
+            active.constant.context.ctx().lineTo(tox-active.constant.numbers.triangleHeight*Math.cos(theta+Math.PI/7),toy-active.constant.numbers.triangleHeight*Math.sin(theta+Math.PI/7));
+            active.constant.context.ctx().lineTo(tox, toy);
+            active.constant.context.ctx().lineTo(tox-active.constant.numbers.triangleHeight*Math.cos(theta-Math.PI/7),toy-active.constant.numbers.triangleHeight*Math.sin(theta-Math.PI/7));
+            active.constant.context.ctx().fill();
+
+            
+            active.constant.context.ctx().beginPath();
+            active.constant.context.ctx().moveTo(x,y);
+            active.constant.context.ctx().lineTo(x+active.constant.numbers.vectorScale*vx,y+active.constant.numbers.vectorScale*vy);
+            active.constant.context.ctx().stroke();
+            
+            
+        },
 
 		/*
 		active.render.draw.status()

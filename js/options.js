@@ -83,12 +83,11 @@ active.options = {
 
 		 */
 		editCircleOn : function () {
+            active.render.draw.velocityVector()
             document.getElementById('xPosition').min = '0'
             document.getElementById('xPosition').max = active.constant.windows.width.toString()
             document.getElementById('yPosition').min = '0'
             document.getElementById('yPosition').max = active.constant.windows.height.toString()
-            document.getElementById('radius').min = '1'
-            document.getElementById('radius').max = active.constant.numbers.maxRadius.toString()
             document.getElementById('ObjectMenuSlideDown').style.opacity = 0.75
 			document.getElementById('InputMenu').style.opacity = 0.75
             document.getElementById('InputMenu').disabled = false
@@ -200,7 +199,7 @@ active.options = {
 			document.getElementById('stop').style.opacity = 0.75 // Turn off the opacity for the stop button.
             document.getElementById('stop').disabled = false;
 			active.object.locate.centerofmass()
-			active.options.run.initialConditions()
+			// active.options.run.initialConditions()
 			active.options.draw.editCircleOff()
 		},
 

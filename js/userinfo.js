@@ -51,8 +51,8 @@ active.userinfo = {
                     active.constant.mouse.position[2] = event.clientX;
                     active.constant.mouse.position[3] = event.clientY;
                     active.userinfo.dot.reset(active.constant.dot.position)
-                    active.create.background.clear()
-                    active.create.background.frame()
+                    // active.create.background.clear()
+                    // active.create.background.frame()
                     active.render.draw.circle(1)
                     if(active.constant.mouse.position[0] != 0 || active.constant.mouse.position[1] != 0){
                         active.constant.mouse.position[4] = Math.sqrt( Math.pow( active.constant.mouse.position[0] - active.constant.mouse.position[2] , 2 ) + Math.pow( active.constant.mouse.position[1] - active.constant.mouse.position[3] , 2 ) )

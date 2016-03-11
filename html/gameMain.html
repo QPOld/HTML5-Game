@@ -50,7 +50,7 @@
             <div id='InputMenu'>
 				<input type='range' id='xPosition' onchange='active.render.draw.update(this.value,"xVal")'>
 				<input type='range' id='yPosition' onchange='active.render.draw.update(this.value,"yVal")'>
-				<input type='range' id='radius' onchange='active.render.draw.update(this.value,"rad")'>
+				<input type='range' id='radius' min="1" max='active.constant.numbers.maxRadius' onchange='active.render.draw.update(this.value,"rad")'>
 				<input type='button' id='confirm' class='Button' value='Confirm' onclick='active.options.draw.editCircleOff()'>
 				<input type='button' id='delete' class='Button' value='Delete' onclick='active.object.edit.remove()'>
                 <div id='InputMenuText'>
@@ -63,9 +63,9 @@
         </div>
         
         <div id='FrontPageButtons'>
-            <button id='HelpButton' class='Button' onclick='active.options.draw.openHelpMenu()'>Help</button>
+            <button id='HelpButton' class='Button' onclick='active.options.draw.openHelpMenu()' autocomplete="off">Help</button>
             <button id='CloseButton' class='Button' onclick='active.options.draw.closeHelpMenu()'>&larr; Close Help</button>
-            <button id='StartButton' class='Button' onclick='active.create.background.initialize()'>Start</button>
+            <button id='StartButton' class='Button' onclick='active.create.background.initialize()' autocomplete="off">Start</button>
             <div id='HelpMenuSlideLeft'>
                 <div id='TextContainer'>
                     <p>

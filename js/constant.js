@@ -36,11 +36,13 @@ active.constant = {
 
 	/*
 	active.constant.object.information
+    active.object.locate.information
 
 	active.constant.object.information is an array storing the phase space
 	for an object plus additional information.
     
     active.constant.object.centerofmass
+    active.object.locate.centerofmass
     
     used to calculate the center of mass for the system of N particles.
 
@@ -76,33 +78,9 @@ active.constant = {
         dotRadius : 5,
         vectorScale : 75,
         triangleHeight: 10, // in pixels
-        triangleBase: 25 // in pixels
-	},
-
-	/*
-	active.constant.RK4.kcoefficent()
-	active.constant.RK4.fcoefficent()
-	active.constant.RK4."name"
-
-	The k-coefficent and f-coefficent are functions that return arrays.
-	They reference the same object and must be returned immediately upon calling.
-
-	The others are called as usual.
-	 */
-	RK4 : {
-		coefficent : function () {
-			return [1, active.constant.numbers.h / 2, active.constant.numbers.h / 2, 1]
-		},
-		matrix : function () {
-			return [active.constant.numbers.h / 6, active.constant.numbers.h / 3, active.constant.numbers.h / 3, 6]
-		},
-		krx : [0, 0, 0, 0, 0], // 0 , krx1, krx2, krx3, krx4
-		kry : [0, 0, 0, 0, 0],
-		kvx : [0, 0, 0, 0, 0], // 1, kvx1, kvx2, kvx3, kvx4
-		kvy : [0, 0, 0, 0, 0],
-		kax : [0, 0, 0, 0, 0],
-		kay : [0, 0, 0, 0, 0],
-		kxy : [0, 0, 0, 0, 0]
+        triangleBase: 25, // in pixels
+        velocityLimit : 100 // for the menu and possible future addtions.
+        
 	},
 
 	/*
@@ -137,18 +115,5 @@ active.constant = {
 		uniform : function (min, max) {
 			return Math.random() * (max - min) + min;
 		}
-	},
-    
-    /* 
-    active.constant.rotate.byAngle(x1,x2,theta)
-    
-    Takes a 2d vector and rotates it by the angle theta. This assumes that x1,x2 are components to a normalized vector.
-    */
-    rotate : {
-        byAngle : function (x1,x2,theta) {
-            var x1p = Math.cos(theta)*x1 - Math.sin(theta)*x2
-            var x2p = Math.sin(theta)*x1 - Math.cos(theta)*x2
-            return [x1p,x2p]
-        }
-    }
+	}
 }

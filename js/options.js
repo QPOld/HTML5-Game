@@ -83,22 +83,50 @@ active.options = {
 
 		 */
 		editCircleOn : function () {
+            active.options.draw.editCircleOffNoSave()
             active.render.draw.velocityVector()
+            document.getElementById('ObjectMenuSlideDown').style.opacity = 0.75
             document.getElementById('xPosition').min = '0'
             document.getElementById('xPosition').max = active.constant.windows.width.toString()
             document.getElementById('yPosition').min = '0'
             document.getElementById('yPosition').max = active.constant.windows.height.toString()
-            document.getElementById('ObjectMenuSlideDown').style.opacity = 0.75
+            document.getElementById('xVelocity').min = '-'+active.constant.numbers.velocityLimit.toString()
+            document.getElementById('xVelocity').max = active.constant.numbers.velocityLimit.toString()
+            document.getElementById('yVelocity').min = '-'+active.constant.numbers.velocityLimit.toString()
+            document.getElementById('yVelocity').max = active.constant.numbers.velocityLimit.toString()
+            document.getElementById('Radius').min = '1'
+            document.getElementById('Radius').max = active.constant.numbers.maxRadius.toString()
 			document.getElementById('InputMenu').style.opacity = 0.75
             document.getElementById('InputMenu').disabled = false
             document.getElementById('InputMenuText').style.opacity = 0.75
             document.getElementById('InputMenuText').disabled = false;
             document.getElementById('xVal').textContent = active.constant.object.information[active.constant.numbers.index][3]
             document.getElementById('yVal').textContent = active.constant.object.information[active.constant.numbers.index][4]
+            document.getElementById('vxVal').textContent = active.constant.object.information[active.constant.numbers.index][5]
+            document.getElementById('vyVal').textContent = active.constant.object.information[active.constant.numbers.index][6]
+            document.getElementById('Radius').value = active.constant.object.information[active.constant.numbers.index][2]
             document.getElementById('rad').textContent = active.constant.object.information[active.constant.numbers.index][2]
             active.userinfo.mouse.reset()
 		},
+        
+        /*
+		active.options.draw.editCircleOffNoSave()
 
+		Turns off the object menu. This is done with a confirmation button.
+		The objectInformation array is updated then the screen is redrawn.
+
+		 */
+		editCircleOffNoSave : function () {
+			document.getElementById('InputMenu').style.opacity = 0.0
+            document.getElementById('InputMenu').disabled = true;
+			document.getElementById('InputMenuText').style.opacity = 0.0
+            document.getElementById('InputMenuText').disabled = true;
+            document.getElementById('ObjectMenuSlideDown').style.opacity = 0.0
+            active.create.background.clear()
+            active.create.background.frame()
+			active.render.draw.circle(1)
+			active.userinfo.mouse.reset()
+		},
 		/*
 		active.options.draw.editCircleOff()
 
@@ -116,7 +144,10 @@ active.options = {
 				try {
 					active.constant.object.information[active.constant.numbers.index][3] = parseInt(document.getElementById('xPosition').value, 10)
                     active.constant.object.information[active.constant.numbers.index][4] = parseInt(document.getElementById('yPosition').value, 10)
-                    active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('radius').value, 10)
+                    active.constant.object.information[active.constant.numbers.index][5] = parseInt(document.getElementById('xVelocity').value, 10)
+                    active.constant.object.information[active.constant.numbers.index][6] = parseInt(document.getElementById('yVelocity').value, 10)
+                    active.constant.object.information[active.constant.numbers.index][2] = parseInt(document.getElementById('Radius').value, 10)
+                    active.constant.object.information[active.constant.numbers.index][1] = Math.PI * active.constant.numbers.rho * Math.pow(parseInt(document.getElementById('Radius').value, 10), 2)
 				} catch (err) {}
 			}
             active.create.background.clear()

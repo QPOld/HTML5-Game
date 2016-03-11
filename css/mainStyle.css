@@ -173,9 +173,9 @@ body {
  */
 #ObjectMenuSlideDown {
     opacity:0;
-    width:50%;
-    heigh:10%;
-    left:25%;
+/*     width:50%;
+    height:auto; */
+    left:5%;
     position:absolute;
     background-color:#f5ffd7;
     transition: opacity 0.5s;
@@ -214,6 +214,14 @@ body {
     padding:5px 70px 5px 70px;
 }
 #yVal {
+	position:relative;
+    padding:5px 70px 5px 70px;
+}
+#vxVal {
+	position:relative;
+    padding:5px 70px 5px 70px;
+}
+#vyVal {
 	position:relative;
     padding:5px 70px 5px 70px;
 }
@@ -433,4 +441,133 @@ p{
     from { opacity: 0; }
     to   { opacity: 0.75; }
 }
+/* Range Inputs */
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  /* width: 100%; /* Specific width is required for Firefox. */ */
+}
 
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+/*   width: 100%; */
+  cursor: pointer;
+  background: transparent; /* Hides the slider so custom styles can be added */
+  border-color: transparent;
+  color: transparent;
+}
+/* Special styling for WebKit/Blink */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 26px;
+  width: 6px;
+  border-radius: 1px;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: -1px -1px -1px #000000, 0px 0px -1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: -1px -1px -1px #000000, 0px 0px -1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 26px;
+  width: 6px;
+  border-radius: 1px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type=range]::-ms-thumb {
+  box-shadow: -1px -1px -1px #000000, 0px 0px -1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 26px;
+  width: 6px;
+  border-radius: 1px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #367ebd;
+}
+
+input[type=range]::-moz-range-track {
+  height: 8px;
+  cursor: pointer;
+  box-shadow: -1px -1px -1px #000000, 0px 0px -1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1px;
+  border: 0px solid #000100;
+}
+
+input[type=range]::-ms-track {
+  height: 8px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 6px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #2a6495;
+  border: 0px solid #010001;
+  border-radius: 2px;
+  box-shadow: -1px -1px -1px #000000, 0px 0px -1px #0f0d0a;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #12a1a3;
+}
+input[type=range]::-ms-fill-upper {
+  background: #1021cd;
+  border: 0px solid #010101;
+  border-radius: 2px;
+  box-shadow: -1px -1px -1px #000000, 0px 0px -1px #0d0d0d;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #163e2a;
+}
+output { 
+  position: absolute;
+  background-image: linear-gradient(top, #444444, #999999);
+  width: 40px; 
+  height: 30px; 
+  text-align: center; 
+  color: white; 
+  border-radius: 10px; 
+  display: inline-block; 
+  font: bold 15px/30px Georgia;
+  bottom: 175%;
+  left: 0;
+  margin-left: -1%;
+}
+output:after { 
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #999999;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  margin-top: -1px;
+}

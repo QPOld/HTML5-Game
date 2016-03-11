@@ -48,14 +48,18 @@
         
         <div id='ObjectMenuSlideDown'>
             <div id='InputMenu'>
-				<input type='range' id='xPosition' onchange='active.render.draw.update(this.value,"xVal")'>
-				<input type='range' id='yPosition' onchange='active.render.draw.update(this.value,"yVal")'>
-				<input type='range' id='radius' min="1" max='active.constant.numbers.maxRadius' onchange='active.render.draw.update(this.value,"rad")'>
+				<input type='range' id='xPosition' oninput='active.render.draw.update(this.value,"xVal")'>
+				<input type='range' id='yPosition' oninput='active.render.draw.update(this.value,"yVal")'>
+                <input type='range' id='xVelocity' oninput='active.render.draw.update(this.value,"vxVal")'>
+				<input type='range' id='yVelocity' oninput='active.render.draw.update(this.value,"vyVal")'>
+				<input type='range' id='Radius' oninput='active.render.draw.update(this.value,"rad")'>
 				<input type='button' id='confirm' class='Button' value='Confirm' onclick='active.options.draw.editCircleOff()'>
 				<input type='button' id='delete' class='Button' value='Delete' onclick='active.object.edit.remove()'>
                 <div id='InputMenuText'>
                     <span id='xVal'> 0 </span>
                     <span id='yVal'> 0 </span>
+                    <span id='vxVal'> 0 </span>
+                    <span id='vyVal'> 0 </span>
                     <span id='rad'> 0 </span>
                 </div>
 			</div>

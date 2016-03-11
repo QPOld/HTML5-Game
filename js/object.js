@@ -24,7 +24,9 @@ active.object = {
 		list : function () {
 			document.getElementById('xPosition').value = active.constant.object.information[active.constant.numbers.index][3]
 			document.getElementById('yPosition').value = active.constant.object.information[active.constant.numbers.index][4]
-			document.getElementById('radius').value = active.constant.object.information[active.constant.numbers.index][2]
+            document.getElementById('xVelocity').value = active.constant.object.information[active.constant.numbers.index][5]
+            document.getElementById('yVelocity').value = active.constant.object.information[active.constant.numbers.index][6]
+			document.getElementById('Radius').value = active.constant.object.information[active.constant.numbers.index][2]
 		},
 
 		/*
@@ -72,13 +74,14 @@ active.object = {
 
 		Updates the active.constant.object.information with information from the RK4 method.
 		number of \ mass \ radius \ x \ y \ vx \ vy \ ax \ ay
-		0 		 1 	     2	   3   4    5    6    7    8
+		    0 		 1 	     2	   3   4    5    6    7    8
 
 
         This method works but needs to be redone.
 
 		 */
 		update : function () {
+            active.object.locate.centerofmass()
             active.method.VelocityVerlet.acc(active.constant.object.information, 1, 2, false)
             active.method.VelocityVerlet.pos(1,3)
             active.method.VelocityVerlet.acc(active.constant.object.information, 1, 2, true)
@@ -183,9 +186,11 @@ active.object = {
             var checkDistance = Math.sqrt( Math.pow(xObject - xMouse, 2) + Math.pow(yObject - yMouse, 2) )
             var self = this;
 			if (yMouse < active.constant.numbers.menuThickness) { // Leaving a menu area for now.
+                active.constant.numbers.index = i
 				active.constant.mouse.isClickable = [false, -1]
                 return true
 			}else if (checkDistance == 0){ // Are you even clicking?
+                active.constant.numbers.index = i
                 active.constant.mouse.isClickable = [false, -1]
                 return true
             }else if (checkDistance > 0 && checkDistance < active.constant.object.information[i][2]) { // Are you inside the object?

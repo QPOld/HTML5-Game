@@ -5,9 +5,9 @@ This is in a very early alpha stage.
 * The client will numerically integrate the objects gravitationally interacting. 
 
 #0.1f
-Added additional information
-Main Menu Is In Progress
-Object Menu Is In Progress
+* Added additional information
+* Main Menu Is In Progress
+* Object Menu Is In Progress
 
 #Road Ahead
 * Live Beta Coming Soon!
@@ -22,4 +22,4 @@ Object Menu Is In Progress
 * Update And Improve Project Design
 
 #How to Use
-Run gameMain.html in firefox.
+* At the moment run html/gameMain.html in firefox.
